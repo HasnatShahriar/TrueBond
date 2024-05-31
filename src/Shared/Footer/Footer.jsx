@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logoImg from '../../../public/logo.png'
+import logoImg from '../../assets/logo/logo.png'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
