@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import CounterSection from "../CounterSection/CounterSection";
 import HowWork from "../HowWork/HowWork";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Banner/>
       <HowWork/>
+      <CounterSection/>
     </div>
   );
 };
