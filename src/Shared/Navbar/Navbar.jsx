@@ -21,7 +21,7 @@ const Navbar = ({ isLoggedIn }) => {
   );
 
   return (
-    <nav className="fixed bg-opacity-30 z-10 w-full max-w-screen-xl shadow-lg">
+    <nav className="fixed bg-opacity-30 z-10 w-full max-w-screen-xl shadow-lg bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
