@@ -14,21 +14,29 @@ const CounterSection = () => {
   // Simulated data - you can fetch real data from an API or database
   useEffect(() => {
     // Simulated data
-    const total = 1000;
-    const girls = 600;
-    const boys = 400;
-    const marriages = 300;
+    // const total = 1000;
+    // const girls = 600;
+    // const boys = 400;
+    // const marriages = 300;
+
+    fetch('./biodatas.json')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.biodataType);
+     
+      })
+
 
     // Update state
-    setTotalBiodatas(total);
-    setGirlsBiodatas(girls);
-    setBoysBiodatas(boys);
-    setCompletedMarriages(marriages);
+    // setTotalBiodatas(total);
+    // setGirlsBiodatas(girls);
+    // setBoysBiodatas(boys);
+    // setCompletedMarriages(marriages);
   }, []);
 
   return (
     <div className='mb-10'>
-      <SectionTitle heading={'TrueBond Users Statistics'}/>
+      <SectionTitle heading={'TrueBond Users Statistics'} />
 
       <section>
         <div className=" mx-auto mt-12  rounded-lg shadow-lg p-6">

@@ -1,50 +1,38 @@
 [
-  {
-    "_id": 1,
+  {  
     "image": "https://via.placeholder.com/100",
     "marriageDate": "January 15, 2010",
     "reviewStar": 1,
-    "storyText": "We met through mutual friends and instantly connected. Our relationship was built on trust, love, and respect. We've been happily married for over a decade and can't imagine life without each other.",
-    "names": "Emily & John"
+    "storyText": "We met through mutual friends and instantly connected. Our relationship was built on trust, love, and respect. We've been happily married for over a decade and can't imagine life without each other."
   },
   {
-    "_id": 2,
     "image": "https://via.placeholder.com/100",
     "marriageDate": "June 24, 2012",
     "reviewStar": 2,
-    "storyText": "After meeting in college, we faced numerous challenges together, but each one made us stronger. Our journey has been filled with laughter, adventures, and love. We are grateful for every moment spent together.",
-    "names": "Sarah & Michael"
+    "storyText": "After meeting in college, we faced numerous challenges together, but each one made us stronger. Our journey has been filled with laughter, adventures, and love. We are grateful for every moment spent together." 
   },
-  {
-    "_id": 3,
+  {  
     "image": "https://via.placeholder.com/100",
     "marriageDate": "March 30, 2015",
     "reviewStar": 3,
-    "storyText": "Online dating brought us together, and from our first date, we knew it was special. Our marriage has been a beautiful blend of support, fun, and unwavering love. We look forward to many more years of happiness.",
-    "names": "Rachel & David"
+    "storyText": "Online dating brought us together, and from our first date, we knew it was special. Our marriage has been a beautiful blend of support, fun, and unwavering love. We look forward to many more years of happiness."    
   },
   {
-    "_id": 4,
     "image": "https://via.placeholder.com/100",
     "marriageDate": "October 12, 2018",
     "reviewStar": 4,
-    "storyText": "We were neighbors who fell in love. Our marriage is a testament to patience and understanding. We've built a life filled with joy, and we cherish the bond we share every single day.",
-    "names": "Linda & Robert"
+    "storyText": "We were neighbors who fell in love. Our marriage is a testament to patience and understanding. We've built a life filled with joy, and we cherish the bond we share every single day."
   },
-  {
-    "_id": 5,
+  {  
     "image": "https://via.placeholder.com/100",
     "marriageDate": "May 18, 2020",
     "reviewStar": 5,
-    "storyText": "Meeting at a mutual friend's party changed our lives forever. Our relationship has been nothing short of amazing. We support each other's dreams and love each other unconditionally. Here's to a lifetime of happiness!",
-    "names": "Olivia & James"
+    "storyText": "Meeting at a mutual friend's party changed our lives forever. Our relationship has been nothing short of amazing. We support each other's dreams and love each other unconditionally. Here's to a lifetime of happiness!"
   },
   {
-    "_id": 6,
     "image": "https://via.placeholder.com/100",
     "marriageDate": "August 25, 2022",
     "reviewStar": 4,
-    "storyText": "We found each other on a dating app and instantly knew it was meant to be. Our marriage is filled with laughter, understanding, and deep love. We are excited about our future together.",
-    "names": "Mia & Ethan"
+    "storyText": "We found each other on a dating app and instantly knew it was meant to be. Our marriage is filled with laughter, understanding, and deep love. We are excited about our future together." 
   }
 ]
