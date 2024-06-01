@@ -9,6 +9,7 @@ import ViewBiodata from "../pages/Dashboard/ViewBiodata/ViewBiodata";
 import MyContactRequest from './../pages/Dashboard/MyContactRequest/MyContactRequest';
 import FavouritesBiodata from "../pages/Dashboard/FavouritesBiodata/FavouritesBiodata";
 import Biodatas from "../pages/Biodatas/Biodatas";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/biodatas",
         element: <Biodatas/>
+      },
+      {
+        path: "/about",
+        element: <AboutUs/>
       },
       {
         path: "login",
