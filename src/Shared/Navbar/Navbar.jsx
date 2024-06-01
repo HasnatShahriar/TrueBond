@@ -1,10 +1,20 @@
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../../assets/logo/logo.png';
+import { AuthContext } from '../../providers/AuthProvider';
 
-const Navbar = ({ isLoggedIn }) => {
+
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {user,logOut} = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => { })
+      .then(error => console.error(error))
+  }
+
 
   const navOptions = (
     <>
@@ -12,16 +22,21 @@ const Navbar = ({ isLoggedIn }) => {
       <Link to="/biodatas" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Biodatas</Link>
       <Link to="/about" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">About Us</Link>
       <Link to="/contact" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Contact Us</Link>
-      {isLoggedIn ? (
-        <Link to="/dashboard" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Dashboard</Link>
+      {user ? (
+        <>
+          <Link to="/dashboard" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Dashboard</Link>
+          <button onClick={handleLogOut} className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Logout</button>
+        </>
       ) : (
         <Link to="/login" className="text-gray-800 hover:text-gray-600 block px-3 py-2 rounded-md text-base font-medium">Login</Link>
       )}
     </>
   );
 
+  
+
   return (
-    <nav className="fixed bg-opacity-30 z-10 w-full max-w-screen-xl shadow-lg bg-black">
+    <nav className=" bg-opacity-30 z-10 w-full max-w-screen-xl shadow-lg bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
