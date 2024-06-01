@@ -3,6 +3,7 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import menImg from '../../../assets/CounterSection/boys.jpg'
 import girlImg from '../../../assets/CounterSection/girls.jpg'
 import coupleImg from '../../../assets/CounterSection/couple.jpg'
+import totalImg from '../../../assets/CounterSection/groom_bride.jpg'
 
 const CounterSection = () => {
   const [totalBiodatas, setTotalBiodatas] = useState(0);
@@ -33,22 +34,22 @@ const CounterSection = () => {
         <div className=" mx-auto mt-12  rounded-lg shadow-lg p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
-              <img className='w-48 h-48' src={coupleImg} alt="" />
+              <img className='w-48 h-48 rounded-full' src={totalImg} alt="" />
               <h3 className="text-2xl font-semibold mb-2">Total Biodatas</h3>
               <p className="text-6xl font-bold text-gray-800">{totalBiodatas}</p>
             </div>
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
-              <img className='w-48 h-48' src={girlImg} alt="" />
+              <img className='w-48 h-48 rounded-full' src={girlImg} alt="" />
               <h3 className="text-2xl font-semibold mb-2">Girls Biodatas</h3>
               <p className="text-6xl font-bold text-pink-500">{girlsBiodatas}</p>
             </div>
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
-              <img className='w-48 h-48' src={menImg} alt="" />
+              <img className='w-48 h-48 rounded-full' src={menImg} alt="" />
               <h3 className="text-2xl font-semibold mb-2">Boys Biodatas</h3>
               <p className="text-6xl font-bold text-blue-500">{boysBiodatas}</p>
             </div>
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
-              <img className='w-48 h-48' src={coupleImg} alt="" />
+              <img className='w-48 h-48 rounded-full' src={coupleImg} alt="" />
               <h3 className="text-2xl font-semibold mb-2">Completed Marriages</h3>
               <p className="text-6xl font-bold text-green-500">{completedMarriages}</p>
             </div>

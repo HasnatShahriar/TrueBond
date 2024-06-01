@@ -1,6 +1,7 @@
 import Banner from "../Banner/Banner";
 import CounterSection from "../CounterSection/CounterSection";
 import HowWork from "../HowWork/HowWork";
+import SuccessStory from "../SuccessStory/SuccessStory";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner/>
       <HowWork/>
       <CounterSection/>
+      <SuccessStory/>
     </div>
   );
 };
