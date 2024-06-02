@@ -134,7 +134,7 @@
 //           </div>
 //         ))}
 //       </div>
-      
+
 //     </div>
 //   );
 // };
@@ -160,10 +160,10 @@ const Biodatas = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [biodatasPerPage] = useState(5); // Adjust the number of biodatas per page as needed
+  const [biodatasPerPage] = useState(6); // Adjust the number of biodatas per page as needed
 
   useEffect(() => {
-      setFilteredBiodatas(biodatas);
+    setFilteredBiodatas(biodatas);
   }, [biodatas]);
 
   // Function to handle filtering
@@ -273,26 +273,29 @@ const Biodatas = () => {
       </div>
 
       {/* Biodata List */}
-      <div className="w-3/4 p-4">
+
+      <div className="">
         <h2 className="text-xl font-bold mb-4">All Created Biodata</h2>
         {/* Display filteredBiodatas */}
-        {currentBiodatas.map((biodata) => (
-          <div key={biodata._id} className="border border-gray-200 rounded-md p-4 mb-4">
-            {/* Display biodata details here */}
-            <img src={biodata.profileImageUrl} alt="" />
-            <h3 className="text-lg font-semibold">Biodata ID: {biodata.biodataId}</h3>
-            <h3 className="text-lg font-semibold">Name: {biodata.name}</h3>
-            <p className="text-gray-600">Age: {biodata.age}</p>
-            <p className="text-gray-600">Occupation: {biodata.occupation}</p>
-            <p className="text-gray-600">Permanent Division: {biodata.permanentDivision}</p>
-            {/* Add more biodata details as needed */}
-            <Link to={`/biodatas/${biodata._id}`}> 
-              <button type="button" className="px-8 py-3 font-semibold border rounded dark:border-gray-800 dark:text-gray-800">
-                View Details
-              </button>
-            </Link>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {currentBiodatas.map((biodata) => (
+            <div key={biodata._id} className="border border-gray-200 rounded-md p-4 mb-4">
+              {/* Display biodata details here */}
+              <img src={biodata.profileImageUrl} alt="" />
+              <h3 className="text-lg font-semibold">Biodata ID: {biodata.biodataId}</h3>
+              <h3 className="text-lg font-semibold">Name: {biodata.name}</h3>
+              <p className="text-gray-600">Age: {biodata.age}</p>
+              <p className="text-gray-600">Occupation: {biodata.occupation}</p>
+              <p className="text-gray-600">Permanent Division: {biodata.permanentDivision}</p>
+              {/* Add more biodata details as needed */}
+              <Link to={`/biodatas/${biodata._id}`}>
+                <button type="button" className="px-8 py-3 font-semibold border rounded dark:border-gray-800 dark:text-gray-800">
+                  View Details
+                </button>
+              </Link>
+            </div>
+          ))}
+        </div>
 
         {/* Pagination Controls */}
         <div className="flex justify-center mt-4">
