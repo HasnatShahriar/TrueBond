@@ -28,7 +28,7 @@ const EditBiodata = () => {
     expectedPartnerAge: '',
     expectedPartnerHeight: '',
     expectedPartnerWeight: '',
-    contactEmail: '', // Assuming user email is readonly and fetched from user context
+    contactEmail: '', // readonly
     mobileNumber: ''
   });
 
@@ -43,28 +43,6 @@ const EditBiodata = () => {
       [name]: value
     });
   };
-
-  // const handleSubmit = async (data) => {
-  //   // e.preventDefault();
-
-  //   // image upload to imgbb and get an url
-  //   const imageFile = { image: data.image[0] }
-  //   const res = await axiosPublic.post(image_hosting_api, imageFile, {
-  //     headers: {
-  //       'content-type': 'multipart/form-data'
-  //     }
-  //   });
-    
-  //   if(res.data.success){
-  //      // now send the biodata to the server with the image url
-       
-  //   }
-
-
-
-  //   // Handle form submission
-  //   console.log(formData);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

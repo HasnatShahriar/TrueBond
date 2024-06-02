@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 const Login = () => {
@@ -17,6 +18,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const axiosPublic = useAxiosPublic();
 
 
   useEffect(() => {
@@ -26,17 +28,21 @@ const Login = () => {
   }, [user, navigate])
 
   // google login
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn()
-      toast.success('SignIn Successful')
-      navigate(location?.state ? location?.state : '/')
-
-    } catch (err) {
-      console.log(err);
-      toast.error(err?.message)
-      toast.error('SignIn Unsuccessful')
-    }
+  const handleGoogleSignIn = () =>{
+    googleSignIn()
+    .then(result =>{
+      console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName
+      }
+      axiosPublic.post('/users',userInfo)
+      .then(res => {
+        console.log(res.data);
+        toast.success('User login successfully')
+        navigate(location?.state ? location?.state : '/')
+      })
+    })
   }
 
   const handleSignIn = e => {

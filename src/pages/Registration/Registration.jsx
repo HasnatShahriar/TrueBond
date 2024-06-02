@@ -132,16 +132,34 @@ const Registration = () => {
   };
 
   // handle google signin
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn()
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await googleSignIn()
 
-      navigate('/')
-      toast.success('SignUp Successful')
-    } catch (err) {
-      console.log(err)
-      toast.error(err.message)
-    }
+
+  //     navigate('/')
+  //     toast.success('SignUp Successful')
+  //   } catch (err) {
+  //     console.log(err)
+  //     toast.error(err.message)
+  //   }
+  // }
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(result => {
+        console.log(result.user);
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName
+        }
+        axiosPublic.post('/users', userInfo)
+          .then(res => {
+            console.log(res.data);
+            toast.success('User signUp + login successfully')
+            navigate(location?.state ? location?.state : '/')
+          })
+      })
   }
 
   if (user || loading) return
