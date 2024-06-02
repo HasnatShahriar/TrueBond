@@ -30,7 +30,7 @@ const Dashboard = () => {
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
                     <FaUsersCog className="text-xl font-bold" /> {/* Set minimum width for icon */}
-                    <NavLink to=" /dashboard/manage" className="ml-2">
+                    <NavLink to="/dashboard/manage" className="ml-2">
                       Manage Users
                     </NavLink>
                   </li>

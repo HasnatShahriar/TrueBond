@@ -13,6 +13,7 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import BiodataDetails from "../components/SectionTitle/BiodataDetails/BiodataDetails";
 import PrivateRoute from "./PrivateRoute";
+import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: <Dashboard />,
     children: [
+      // normal user routes
       {
         path: "editBiodata",
         element: <EditBiodata />
@@ -69,6 +71,11 @@ const router = createBrowserRouter([
       {
         path: "favouritesBiodata",
         element: <FavouritesBiodata />
+      },
+      // admin routes
+      {
+        path: "manage",
+        element: <ManageUsers/>
       }
     ]
   }
