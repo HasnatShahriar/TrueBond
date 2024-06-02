@@ -14,23 +14,37 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Rating } from "@smastrom/react-rating";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 
 
 
 const SuccessStory = () => {
 
-  const [reviews, setReviews] = useState([]);
+  // const [reviews, setReviews] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/reviews')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        const sortedData = data.sort((a, b) => new Date(b.marriageDate) - new Date(a.marriageDate));
-        setReviews(sortedData)
-      })
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/reviews')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       const sortedData = data.sort((a, b) => new Date(b.marriageDate) - new Date(a.marriageDate));
+  //       setReviews(sortedData)
+  //     })
+  // }, [])
+
+
+  const axiosPublic = useAxiosPublic();
+
+  const { data: reviews = [], } = useQuery({
+    queryKey: ['reviews'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/reviews');
+      return res.data;
+    }
+  })
+  // console.log(reviews);
 
   return (
     <div className="my-20">
@@ -41,8 +55,8 @@ const SuccessStory = () => {
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
 
         {
-          reviews.map(review => <SwiperSlide
-            key={review.id}
+          reviews.map((review,index) => <SwiperSlide
+            key={index}
           >
             <div className="mb-8 p-4 border rounded-lg bg-pink-100 shadow-lg">
               <div className="flex flex-col justify-center items-center gap-10">

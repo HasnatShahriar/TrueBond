@@ -1,63 +1,11 @@
-// import { useEffect, useState } from "react";
-
-// const Biodatas = () => {
-//   const [biodatas, setBiodatas] = useState([]);
-//   const [filteredBiodatas, setFilteredBiodatas] = useState([]);
-
-//   useEffect(() => {
-//     fetch("http://localhost:5000/biodatas")
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setBiodatas(data);
-//         setFilteredBiodatas(data);
-//       });
-//   }, []);
-
-//   // Function to handle filtering
-//   const handleFilter = (criteria) => {
-//     // Implement filtering logic based on criteria
-//     // Update filteredBiodatas state accordingly
-//   };
-
-//   return (
-//     <div className="flex">
-//       {/* Filter Options */}
-//       <div className="w-1/4 p-4">
-//         <h2 className="text-xl font-bold mb-4">Filter Options</h2>
-//         {/* Add filter options components here */}
-//       </div>
-
-//       {/* Biodata List */}
-//       <div className="w-3/4 p-4">
-//         <h2 className="text-xl font-bold mb-4">All Created Biodata</h2>
-//         {/* Display filteredBiodatas */}
-//         {filteredBiodatas.map((biodata) => (
-//           <div key={biodata.id} className="border border-gray-200 rounded-md p-4 mb-4">
-//             {/* Display biodata details here */}
-//             <h3 className="text-lg font-semibold">{biodata.name}</h3>
-//             <p className="text-gray-600">Date of Birth: {biodata.dateOfBirth}</p>
-//             <p className="text-gray-600">Occupation: {biodata.occupation}</p>
-//             {/* Add more biodata details as needed */}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Biodatas;
-
-
-
-
-
-
-
 
 import { useEffect, useState } from "react";
+import useBiodatas from "../../hooks/useBiodatas";
+import { Link } from "react-router-dom";
 
 const Biodatas = () => {
-  const [biodatas, setBiodatas] = useState([]);
+  const [biodatas] = useBiodatas();
+  // console.log(biodatas);
   const [filteredBiodatas, setFilteredBiodatas] = useState([]);
   const [filterCriteria, setFilterCriteria] = useState({
     minAge: '',
@@ -67,13 +15,8 @@ const Biodatas = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/biodatas")
-      .then((res) => res.json())
-      .then((data) => {
-        setBiodatas(data);
-        setFilteredBiodatas(data);
-      });
-  }, []);
+      setFilteredBiodatas(biodatas);
+  }, [biodatas]);
 
   // Function to handle filtering
   const handleFilter = () => {
@@ -93,6 +36,7 @@ const Biodatas = () => {
     if (filterCriteria.division) {
       filtered = filtered.filter(biodata => biodata.division === filterCriteria.division);
     }
+
 
     setFilteredBiodatas(filtered);
   };
@@ -179,13 +123,18 @@ const Biodatas = () => {
         {filteredBiodatas.map((biodata) => (
           <div key={biodata.id} className="border border-gray-200 rounded-md p-4 mb-4">
             {/* Display biodata details here */}
-            <h3 className="text-lg font-semibold">{biodata.name}</h3>
-            <p className="text-gray-600">Date of Birth: {biodata.dateOfBirth}</p>
+            {/* <img src={biodata.profileImageUrl} alt="" /> */}
+            <h3 className="text-lg font-semibold">Biodata ID: {biodata.biodataId}</h3>
+            <h3 className="text-lg font-semibold">Name: {biodata.name}</h3>
+            <p className="text-gray-600">Age: {biodata.age}</p>
             <p className="text-gray-600">Occupation: {biodata.occupation}</p>
+            <p className="text-gray-600">Permanent Division: {biodata.permanentDivision}</p>
             {/* Add more biodata details as needed */}
+           <Link to={`/biodatas/${biodata._id}`}> <button type="button" className="px-8 py-3 font-semibold border rounded dark:border-gray-800 dark:text-gray-800">View Details</button></Link>
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

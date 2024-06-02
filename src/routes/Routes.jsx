@@ -11,6 +11,7 @@ import FavouritesBiodata from "../pages/Dashboard/FavouritesBiodata/FavouritesBi
 import Biodatas from "../pages/Biodatas/Biodatas";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import BiodataDetails from "../components/SectionTitle/BiodataDetails/BiodataDetails";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
       {
         path: "/biodatas",
         element: <Biodatas/>
+      },
+      {
+        path: "/biodatas/:id",
+        element: <BiodataDetails/>,
+        loader: ({ params }) => fetch(`/biodatas/${params.id}`)
       },
       {
         path: "/about",
