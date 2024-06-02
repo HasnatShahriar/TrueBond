@@ -121,9 +121,9 @@ const Biodatas = () => {
         <h2 className="text-xl font-bold mb-4">All Created Biodata</h2>
         {/* Display filteredBiodatas */}
         {filteredBiodatas.map((biodata) => (
-          <div key={biodata.id} className="border border-gray-200 rounded-md p-4 mb-4">
+          <div key={biodata._id} className="border border-gray-200 rounded-md p-4 mb-4">
             {/* Display biodata details here */}
-            {/* <img src={biodata.profileImageUrl} alt="" /> */}
+            <img src={biodata.profileImageUrl} alt="" />
             <h3 className="text-lg font-semibold">Biodata ID: {biodata.biodataId}</h3>
             <h3 className="text-lg font-semibold">Name: {biodata.name}</h3>
             <p className="text-gray-600">Age: {biodata.age}</p>
@@ -140,3 +140,5 @@ const Biodatas = () => {
 };
 
 export default Biodatas;
+
+

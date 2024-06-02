@@ -7,11 +7,18 @@ import toast from "react-hot-toast"
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Helmet } from "react-helmet-async"
 import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic"
+
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 
 const Registration = () => {
 
-  const { createUser, updateUserProfile, user, setUser, loading,googleSignIn } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  const { createUser, updateUserProfile, user, setUser, loading, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
   const [success, setSuccess] = useState('');
@@ -24,56 +31,118 @@ const Registration = () => {
   }, [user, navigate])
 
   // email & password 
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
+  //   const photo = form.photo.value;
+  //   console.log(name, email, password, photo);
+
+
+  //   // reset error & success
+  //   setRegisterError('');
+  //   setSuccess('');
+
+  //   if (password.length < 6) {
+  //     setRegisterError('Password must have at least 6 or more characters')
+  //     return
+  //   }
+  //   else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
+  //     setRegisterError('Password must have at least one uppercase and one lowercase letter')
+  //     return
+  //   }
+
+
+  //   try {
+  //     const result = await createUser(email, password)
+  //     console.log(result);
+  //     await updateUserProfile(name, photo)
+  //     // Optimistic UI Update
+  //     setUser({ ...result?.user, photoURL: photo, displayName: name })
+  //     navigate('/')
+  //     toast.success('Sign UP Successfully')
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.message)
+  //   }
+  // }
+
+
+  // email & password 
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const photo = form.photo.value;
-    console.log(name, email, password, photo);
-
+    const imageFile = form.photo.files[0];
 
     // reset error & success
     setRegisterError('');
     setSuccess('');
 
     if (password.length < 6) {
-      setRegisterError('Password must have at least 6 or more characters')
-      return
+      setRegisterError('Password must have at least 6 or more characters');
+      return;
+    } else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
+      setRegisterError('Password must have at least one uppercase and one lowercase letter');
+      return;
     }
-    else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
-      setRegisterError('Password must have at least one uppercase and one lowercase letter')
-      return
-    }
-
 
     try {
-      const result = await createUser(email, password)
-      console.log(result);
-      await updateUserProfile(name, photo)
+      // Upload image to ImgBB
+      const imageData = new FormData();
+      imageData.append('image', imageFile);
+      const imageResponse = await axiosPublic.post(image_hosting_api, imageData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      });
+
+      // Extract image URL from response
+      const imageUrl = imageResponse.data.data.url;
+
+      const result = await createUser(email, password);
+      await updateUserProfile(name, imageUrl);
       // Optimistic UI Update
-      setUser({ ...result?.user, photoURL: photo, displayName: name })
-      navigate('/')
-      toast.success('Sign UP Successfully')
+      setUser({ ...result?.user, photoURL: imageUrl, displayName: name });
+
+      // create user entry in the database
+      const userInfo = {
+        name: name,
+        email: email
+      }
+      axiosPublic.post('/users', userInfo)
+        .then(res => {
+          if (res.data.insertedId) {
+            console.log('user added to the database');
+            navigate('/');
+            toast.success('Sign UP Successfully');
+          }
+        })
+
+
+
     } catch (err) {
       console.log(err);
-      toast.error(err?.message)
+      toast.error(err?.message);
+    }
+  };
+
+  // handle google signin
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn()
+
+      navigate('/')
+      toast.success('SignUp Successful')
+    } catch (err) {
+      console.log(err)
+      toast.error(err.message)
     }
   }
-
-    // handle google signin
-    const handleGoogleSignIn = async () => {
-      try {
-        await googleSignIn()
-  
-        navigate('/')
-        toast.success('SignUp Successful')
-      } catch (err) {
-        console.log(err)
-        toast.error(err.message)
-      }
-    }
 
   if (user || loading) return
 
@@ -150,7 +219,7 @@ const Registration = () => {
                 autoComplete='photo'
                 name='photo'
                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
-                type='text'
+                type='file'
               />
             </div>
             <div className='mt-4'>

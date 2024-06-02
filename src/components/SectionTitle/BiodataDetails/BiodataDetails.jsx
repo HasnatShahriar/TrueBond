@@ -66,4 +66,3 @@ const BiodataDetails = () => {
 
 export default BiodataDetails;
 
-

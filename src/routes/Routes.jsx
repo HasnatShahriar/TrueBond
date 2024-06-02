@@ -12,62 +12,63 @@ import Biodatas from "../pages/Biodatas/Biodatas";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import BiodataDetails from "../components/SectionTitle/BiodataDetails/BiodataDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main/>,
+    element: <Main />,
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Home />
       },
       {
         path: "/biodatas",
-        element: <Biodatas/>
+        element: <Biodatas />
       },
       {
         path: "/biodatas/:id",
-        element: <BiodataDetails/>,
+        element: <PrivateRoute><BiodataDetails /></PrivateRoute>,
         loader: ({ params }) => fetch(`/biodatas/${params.id}`)
       },
       {
         path: "/about",
-        element: <AboutUs/>
+        element: <AboutUs />
       },
       {
         path: "/contact",
-        element: <ContactUs/>
+        element: <ContactUs />
       },
       {
-        path: "login",
-        element: <Login/>
+        path: "/login",
+        element: <Login />
       },
       {
         path: '/register',
-        element: <Registration/>
+        element: <Registration />
       },
     ]
   },
   {
     path: "dashboard",
-    element: <Dashboard/>,
+    element: <Dashboard />,
     children: [
       {
         path: "editBiodata",
-        element: <EditBiodata/>
+        element: <EditBiodata />
       },
       {
         path: "viewBiodata",
-        element: <ViewBiodata/>
+        element: <ViewBiodata />
       },
       {
         path: "myContactRequest",
-        element: <MyContactRequest/>
+        element: <MyContactRequest />
       },
       {
         path: "favouritesBiodata",
-        element: <FavouritesBiodata/>
+        element: <FavouritesBiodata />
       }
     ]
   }

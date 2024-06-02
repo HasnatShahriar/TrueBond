@@ -1,6 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../providers/AuthProvider';
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 
 const EditBiodata = () => {
+  const axiosPublic = useAxiosPublic();
+  const {user} = useContext(AuthContext);
+  console.log(user);
   const [formData, setFormData] = useState({
     biodataType: '',
     name: '',
@@ -18,7 +28,7 @@ const EditBiodata = () => {
     expectedPartnerAge: '',
     expectedPartnerHeight: '',
     expectedPartnerWeight: '',
-    contactEmail: 'user@example.com', // Assuming user email is readonly and fetched from user context
+    contactEmail: '', // Assuming user email is readonly and fetched from user context
     mobileNumber: ''
   });
 
@@ -34,10 +44,64 @@ const EditBiodata = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = async (data) => {
+  //   // e.preventDefault();
+
+  //   // image upload to imgbb and get an url
+  //   const imageFile = { image: data.image[0] }
+  //   const res = await axiosPublic.post(image_hosting_api, imageFile, {
+  //     headers: {
+  //       'content-type': 'multipart/form-data'
+  //     }
+  //   });
+    
+  //   if(res.data.success){
+  //      // now send the biodata to the server with the image url
+       
+  //   }
+
+
+
+  //   // Handle form submission
+  //   console.log(formData);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+
+    // Prepare form data for image upload
+    const imageFile = e.target.profileImageUrl.files[0];
+    const imageData = new FormData();
+    imageData.append('image', imageFile);
+
+    try {
+      // Upload image to ImgBB
+      const imageResponse = await axiosPublic.post(image_hosting_api, imageData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      });
+
+      // Extract image URL from response
+      const imageUrl = imageResponse.data.data.url;
+
+      // Prepare biodata with image URL
+      const biodata = {
+        ...formData,
+        profileImageUrl: imageUrl
+      };
+
+      // Send biodata to the server
+      const response = await axiosPublic.put('/biodatas', biodata);
+
+      // Handle success
+      console.log('Biodata submitted successfully:', response.data);
+      toast.success('Biodata submitted successfully');
+    } catch (error) {
+      // Handle error
+      console.error('Error submitting biodata:', error);
+      toast.error('Error submitting biodata');
+    }
   };
 
   return (
@@ -111,7 +175,7 @@ const EditBiodata = () => {
             <div className="form-group">
               <label className="block text-gray-700 font-semibold mb-2">Profile Image URL:</label>
               <input
-                type="url"
+                type="file"
                 name="profileImageUrl"
                 value={formData.profileImageUrl}
                 onChange={handleChange}
@@ -266,9 +330,10 @@ const EditBiodata = () => {
             <div className="form-group">
               <label className="block text-gray-700 font-semibold mb-2">Contact Email:</label>
               <input
+              defaultValue={user?.email}
                 type="email"
                 name="contactEmail"
-                value={formData.contactEmail}
+                // value={formData.contactEmail}
                 readOnly
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
               />
