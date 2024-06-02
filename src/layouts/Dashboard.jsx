@@ -5,6 +5,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import Navbar from "../Shared/Navbar/Navbar";
 import { FaBookmark } from "react-icons/fa6";
+import { GiLovers } from "react-icons/gi";
 
 const Dashboard = () => {
   const { logOut } = useContext(AuthContext);
@@ -78,6 +79,12 @@ const Dashboard = () => {
                     <FaBookmark className="text-xl font-bold" /> {/* Set minimum width for icon */}
                     <NavLink to="/dashboard/favouritesBiodata" className="ml-2">
                       Favorites Biodata
+                    </NavLink>
+                  </li>
+                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                    <GiLovers className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <NavLink to="/dashboard/gotMarried" className="ml-2">
+                      Got Married
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black"> {/* Removed margin for bottom item */}

@@ -14,6 +14,10 @@ import ContactUs from "../pages/ContactUs/ContactUs";
 import BiodataDetails from "../components/SectionTitle/BiodataDetails/BiodataDetails";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
+import GotMarried from "../pages/Dashboard/GotMarried/GotMarried";
+import ApprovedPremium from "../pages/Dashboard/ApprovedPremium/ApprovedPremium";
+import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest/ApprovedContactRequest";
+import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -72,10 +76,30 @@ const router = createBrowserRouter([
         path: "favouritesBiodata",
         element: <FavouritesBiodata />
       },
+      {
+        path: "gotMarried",
+        element: <GotMarried />
+      },
       // admin routes
       {
+        path: "dashboard",
+        element: <AdminDashboard />
+      },
+      {
         path: "manage",
-        element: <ManageUsers/>
+        element: <ManageUsers />
+      },
+      {
+        path: "manage",
+        element: <ManageUsers />
+      },
+      {
+        path: "approvedPremium",
+        element: <ApprovedPremium />
+      },
+      {
+        path: "approvedContactRequest",
+        element: <ApprovedContactRequest />
       }
     ]
   }
