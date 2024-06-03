@@ -1,48 +1,45 @@
 import logo from '../../assets/logo/logo.png'
 import img from '../../assets/login/login.jpg'
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import toast from 'react-hot-toast';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
+
 
 
 const Login = () => {
 
-  const { signIn, googleSignIn, user, loading } = useContext(AuthContext);
+  const { signIn, googleSignIn } = useContext(AuthContext);
   const location = useLocation()
   const navigate = useNavigate()
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const axiosPublic = useAxiosPublic();
 
 
-  useEffect(() => {
-    if (user) {
-      navigate('/')
-    }
-  }, [user, navigate])
+
 
   // google login
-  const handleGoogleSignIn = () =>{
+  const handleGoogleSignIn = () => {
     googleSignIn()
-    .then(result =>{
-      console.log(result.user);
-      const userInfo = {
-        email: result.user?.email,
-        name: result.user?.displayName
-      }
-      axiosPublic.post('/users',userInfo)
-      .then(res => {
-        console.log(res.data);
+      .then(result => {
+        console.log(result.user);
+        // const userInfo = {
+        //   email: result.user?.email,
+        //   name: result.user?.displayName
+        // }
+        // axiosPublic.post('/users', userInfo)
+        //   .then(res => {
+        //     console.log(res.data);
+
+        //   })
+
         toast.success('User login successfully')
         navigate(location?.state ? location?.state : '/')
       })
-    })
   }
 
   const handleSignIn = e => {
@@ -69,12 +66,9 @@ const Login = () => {
         console.error(error);
         setLoginError('Please Provide Valid Email & Password')
         toast.error("User Login Failed !!! Please check your email & password")
-
       })
   }
 
-
-  if (user || loading) return
 
   return (
     <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>

@@ -1,6 +1,7 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -8,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
- 
+
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -36,17 +37,72 @@ const AuthProvider = ({ children }) => {
   }
 
 
-  useEffect(()=>{
-    const unsubscribe = onAuthStateChanged(auth,currentUser =>{
+  // save user
+  // const saveUser = async user => {
+  //   const currentUser = {
+  //     email: user?.email,
+  //     role: 'normal',
+  //     status: 'Verified',
+  //   }
+  //   const { data } = await axios.put(`http://localhost:5000/user`, currentUser)
+  //   return data;
+  // }
+
+  const saveUser = async (user) => {
+    if (!user || !user.email) {
+      console.error("Invalid user object passed to saveUser", user);
+      return;
+    }
+  
+    const currentUser = {
+      email: user?.email,
+      role: 'normal',
+      status: 'Verified',
+    };
+  
+    try {
+      const { data } = await axios.put(`http://localhost:5000/user`, currentUser);
+      return data;
+    } catch (error) {
+      console.error("Error saving user", error);
+    }
+  };
+
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, currentUser => {
+  //     setUser(currentUser);
+  //     if (currentUser) {
+  //       saveUser();
+  //       console.log("New User's Data saved in db");
+  //     }
+  //     console.log('current user', currentUser);
+  //     setLoading(false);
+  //   });
+  //   return () => {
+  //     return unsubscribe();
+  //   }
+  // }, [])
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      console.log('current user',currentUser);
+  
+      if (currentUser) {
+        await saveUser(currentUser);  // Pass the currentUser object
+        console.log("New User's Data saved in db");
+      }
+  
+      console.log('current user', currentUser);
       setLoading(false);
     });
+  
     return () => {
       return unsubscribe();
-    }
-  },[])
-
+    };
+  }, []);
+  
 
   const authInfo = {
     user,

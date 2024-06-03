@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import img from '../../assets/SignUp/signUp.jpg'
 import logo from '../../assets/logo/logo.png'
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 
 import toast from "react-hot-toast"
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
@@ -24,11 +24,11 @@ const Registration = () => {
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      navigate('/')
-    }
-  }, [user, navigate])
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate('/')
+  //   }
+  // }, [user, navigate])
 
   // email & password 
   // const handleRegister = async (e) => {
@@ -110,59 +110,45 @@ const Registration = () => {
       setUser({ ...result?.user, photoURL: imageUrl, displayName: name });
 
       // create user entry in the database
-      const userInfo = {
-        name: name,
-        email: email
-      }
-      axiosPublic.post('/users', userInfo)
-        .then(res => {
-          if (res.data.insertedId) {
-            console.log('user added to the database');
-            navigate('/');
-            toast.success('Sign UP Successfully');
-          }
-        })
+      // const userInfo = {
+      //   name: name,
+      //   email: email
+      // }
+      // axiosPublic.post('/users', userInfo)
+      //   .then(res => {
+      //     if (res.data.insertedId) {
+      //       console.log('user added to the database');
 
+      //     }
+      //   })
 
-
+      navigate('/');
+      toast.success('Sign UP Successfully');
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
     }
   };
 
-  // handle google signin
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await googleSignIn()
-
-
-  //     navigate('/')
-  //     toast.success('SignUp Successful')
-  //   } catch (err) {
-  //     console.log(err)
-  //     toast.error(err.message)
-  //   }
-  // }
+  // handle google sign
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(result => {
         console.log(result.user);
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName
-        }
-        axiosPublic.post('/users', userInfo)
-          .then(res => {
-            console.log(res.data);
-            toast.success('User signUp + login successfully')
-            navigate(location?.state ? location?.state : '/')
-          })
+        // const userInfo = {
+        //   email: result.user?.email,
+        //   name: result.user?.displayName
+        // }
+        // axiosPublic.post('/users', userInfo)
+        //   .then(res => {
+        //     console.log(res.data);
+
+        //   })
+        toast.success('User signUp + login successfully')
+        navigate(location?.state ? location?.state : '/')
       })
   }
-
-  if (user || loading) return
 
   return (
     <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>

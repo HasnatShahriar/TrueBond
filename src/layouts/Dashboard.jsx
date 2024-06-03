@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { logOut } = useContext(AuthContext);
 
   // TODO: get isAdmin value from the database
-  const isAdmin = true;
+  const isAdmin = false;
 
   return (
     <div>
