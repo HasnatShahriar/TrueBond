@@ -24,52 +24,6 @@ const Registration = () => {
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate('/')
-  //   }
-  // }, [user, navigate])
-
-  // email & password 
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
-  //   const name = form.name.value;
-  //   const email = form.email.value;
-  //   const password = form.password.value;
-  //   const photo = form.photo.value;
-  //   console.log(name, email, password, photo);
-
-
-  //   // reset error & success
-  //   setRegisterError('');
-  //   setSuccess('');
-
-  //   if (password.length < 6) {
-  //     setRegisterError('Password must have at least 6 or more characters')
-  //     return
-  //   }
-  //   else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
-  //     setRegisterError('Password must have at least one uppercase and one lowercase letter')
-  //     return
-  //   }
-
-
-  //   try {
-  //     const result = await createUser(email, password)
-  //     console.log(result);
-  //     await updateUserProfile(name, photo)
-  //     // Optimistic UI Update
-  //     setUser({ ...result?.user, photoURL: photo, displayName: name })
-  //     navigate('/')
-  //     toast.success('Sign UP Successfully')
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error(err?.message)
-  //   }
-  // }
-
-
   // email & password 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -109,19 +63,6 @@ const Registration = () => {
       // Optimistic UI Update
       setUser({ ...result?.user, photoURL: imageUrl, displayName: name });
 
-      // create user entry in the database
-      // const userInfo = {
-      //   name: name,
-      //   email: email
-      // }
-      // axiosPublic.post('/users', userInfo)
-      //   .then(res => {
-      //     if (res.data.insertedId) {
-      //       console.log('user added to the database');
-
-      //     }
-      //   })
-
       navigate('/');
       toast.success('Sign UP Successfully');
     } catch (err) {
@@ -130,21 +71,63 @@ const Registration = () => {
     }
   };
 
+
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
+  //   const imageFile = form.photo.files[0];
+
+  //   setRegisterError('');
+  //   setSuccess('');
+
+  //   if (password.length < 6) {
+  //     setRegisterError('Password must have at least 6 or more characters');
+  //     return;
+  //   } else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
+  //     setRegisterError('Password must have at least one uppercase and one lowercase letter');
+  //     return;
+  //   }
+
+  //   try {
+  //     // Upload image to ImgBB (assuming the logic is correct)
+  //     const imageData = new FormData();
+  //     imageData.append('image', imageFile);
+  //     const imageResponse = await axiosPublic.post(image_hosting_api, imageData, {
+  //       headers: {
+  //         'content-type': 'multipart/form-data'
+  //       }
+  //     });
+
+  //     // Extract image URL from response
+  //     const imageUrl = imageResponse.data.data.url;
+
+  //     // Call createUser from AuthContext to create the user
+  //     const result = await createUser(email, password);
+
+  //     // Update user profile with name and image URL
+  //     await updateUserProfile(name, imageUrl);
+
+  //     // Optimistic UI Update (assuming this is the desired behavior)
+  //     setUser({ ...result?.user, photoURL: imageUrl, displayName: name }); // Call setUser from AuthContext
+
+  //     navigate('/');
+  //     toast.success('Sign UP Successfully');
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.message);
+  //   }
+  // };
+  
+
   // handle google sign
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(result => {
         console.log(result.user);
-        // const userInfo = {
-        //   email: result.user?.email,
-        //   name: result.user?.displayName
-        // }
-        // axiosPublic.post('/users', userInfo)
-        //   .then(res => {
-        //     console.log(res.data);
-
-        //   })
         toast.success('User signUp + login successfully')
         navigate(location?.state ? location?.state : '/')
       })
@@ -275,18 +258,12 @@ const Registration = () => {
             </div>
           </form>
 
-
-
           {
             registerError && <p className="text-red-600 ml-8">{registerError}</p>
           }
           {
             success && <p className="text-green-500 ml-8">{success}</p>
           }
-
-
-
-
 
           <div className='flex items-center justify-between mt-4'>
             <span className='w-1/5 border-b  md:w-1/4'></span>

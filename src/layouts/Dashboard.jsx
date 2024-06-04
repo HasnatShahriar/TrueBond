@@ -1,18 +1,19 @@
-import { useContext } from "react";
 import { FaEdit, FaPhone, FaUserCircle, FaUsersCog } from "react-icons/fa";
 import { MdApproval, MdLogout, MdOutlineContactPhone, MdOutlineSpaceDashboard } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
 import Navbar from "../Shared/Navbar/Navbar";
 import { FaBookmark } from "react-icons/fa6";
 import { GiLovers } from "react-icons/gi";
+import useRole from "../hooks/useRole";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
-  const { logOut } = useContext(AuthContext);
-
+  const { logOut } = useAuth;
+  const [role, isLoading] = useRole();
+  // console.log(role, isLoading);
   // TODO: get isAdmin value from the database
-  const isAdmin = false;
-
+  // const isAdmin = false;
+  if (isLoading) return <p>Loading...</p>
   return (
     <div>
       <Navbar />
@@ -21,7 +22,7 @@ const Dashboard = () => {
           {/* Sidebar */}
           <ul className="menu p-4 flex flex-col"> {/* Added flex styles */}
             {
-              isAdmin ?
+              role === 'admin' ?
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdOutlineSpaceDashboard className="text-xl font-bold" /> {/* Set minimum width for icon */}
