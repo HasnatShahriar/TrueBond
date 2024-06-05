@@ -18,7 +18,7 @@ const Registration = () => {
 
   const axiosPublic = useAxiosPublic();
 
-  const { createUser, updateUserProfile, user, setUser, loading, googleSignIn } = useContext(AuthContext);
+  const { createUser, updateUserProfile, user, setUser, loading,setLoading, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState('');
   const [success, setSuccess] = useState('');
@@ -36,12 +36,15 @@ const Registration = () => {
     // reset error & success
     setRegisterError('');
     setSuccess('');
+    setLoading(true);
 
     if (password.length < 6) {
       setRegisterError('Password must have at least 6 or more characters');
+      setLoading(false);
       return;
     } else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
       setRegisterError('Password must have at least one uppercase and one lowercase letter');
+      setLoading(false);
       return;
     }
 
@@ -62,65 +65,17 @@ const Registration = () => {
       await updateUserProfile(name, imageUrl);
       // Optimistic UI Update
       setUser({ ...result?.user, photoURL: imageUrl, displayName: name });
+      setLoading(false);
 
       navigate('/');
       toast.success('Sign UP Successfully');
     } catch (err) {
+      setLoading(false);
       console.log(err);
       toast.error(err?.message);
     }
   };
 
-
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
-  //   const name = form.name.value;
-  //   const email = form.email.value;
-  //   const password = form.password.value;
-  //   const imageFile = form.photo.files[0];
-
-  //   setRegisterError('');
-  //   setSuccess('');
-
-  //   if (password.length < 6) {
-  //     setRegisterError('Password must have at least 6 or more characters');
-  //     return;
-  //   } else if (!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(password)) {
-  //     setRegisterError('Password must have at least one uppercase and one lowercase letter');
-  //     return;
-  //   }
-
-  //   try {
-  //     // Upload image to ImgBB (assuming the logic is correct)
-  //     const imageData = new FormData();
-  //     imageData.append('image', imageFile);
-  //     const imageResponse = await axiosPublic.post(image_hosting_api, imageData, {
-  //       headers: {
-  //         'content-type': 'multipart/form-data'
-  //       }
-  //     });
-
-  //     // Extract image URL from response
-  //     const imageUrl = imageResponse.data.data.url;
-
-  //     // Call createUser from AuthContext to create the user
-  //     const result = await createUser(email, password);
-
-  //     // Update user profile with name and image URL
-  //     await updateUserProfile(name, imageUrl);
-
-  //     // Optimistic UI Update (assuming this is the desired behavior)
-  //     setUser({ ...result?.user, photoURL: imageUrl, displayName: name }); // Call setUser from AuthContext
-
-  //     navigate('/');
-  //     toast.success('Sign UP Successfully');
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error(err?.message);
-  //   }
-  // };
-  
 
   // handle google sign
 
@@ -130,6 +85,7 @@ const Registration = () => {
         console.log(result.user);
         toast.success('User signUp + login successfully')
         navigate(location?.state ? location?.state : '/')
+        setLoading(false);
       })
   }
 
@@ -290,3 +246,7 @@ const Registration = () => {
 }
 
 export default Registration
+
+
+
+

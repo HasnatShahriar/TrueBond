@@ -38,6 +38,9 @@ const ApprovedPremium = () => {
       })
   }
 
+  if(isLoading) {
+    return <p>Loading...</p>
+  }
 
   console.log(users);
 
@@ -56,39 +59,39 @@ const ApprovedPremium = () => {
                     scope='col'
                     className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                   >
+                    Name
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                  >
                     Email
                   </th>
                   <th
                     scope='col'
                     className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                   >
-                    Role
-                  </th>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Status
+                    Biodata Id
                   </th>
 
                   <th
                     scope='col'
                     className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                   >
-                    Action
+                    Make Premium
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {users.map(user => <tr key={user._id}>
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+                    <p className='text-gray-900 whitespace-no-wrap'>{user?.name}</p>
+                  </td>
+                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
                   </td>
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <p className='text-gray-900 whitespace-no-wrap'>{user?.role}</p>
-                  </td>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    {user?.status}
+                    {user?.biodataId}
                   </td>
 
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>

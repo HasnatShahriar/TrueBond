@@ -18,6 +18,7 @@ import GotMarried from "../pages/Dashboard/GotMarried/GotMarried";
 import ApprovedPremium from "../pages/Dashboard/ApprovedPremium/ApprovedPremium";
 import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest/ApprovedContactRequest";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
+import Checkout from "../pages/Checkout/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Registration />
       },
+      {
+        path: "/checkout/:biodataId",
+        element: <Checkout />
+      }
     ]
   },
   {

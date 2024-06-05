@@ -110,7 +110,7 @@ import toast from "react-hot-toast";
 const ManageUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const axiosSecure = useAxiosSecure();
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [],isLoading, refetch } = useQuery({
     queryKey: ['users', searchTerm],
     queryFn: async () => {
       if (searchTerm) {
@@ -122,6 +122,8 @@ const ManageUsers = () => {
       }
     }
   });
+
+  if(isLoading) return <p>Loading....</p>
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -149,7 +151,7 @@ const ManageUsers = () => {
         }
       })
   }
-
+console.log(users);
   return (
     <div>
       <div className="flex justify-evenly my-4">
@@ -191,10 +193,10 @@ const ManageUsers = () => {
                   <tr key={user._id}>
                     <td className="px-3 font-medium dark:text-gray-600">{index + 1}</td>
                     <td className="px-3 py-2">
-                      <p>{user.name}</p>
+                      <p>{user?.name}</p>
                     </td>
                     <td className="px-3 py-2">
-                      <span>{user.email}</span>
+                      <span>{user?.email}</span>
                     </td>
                     <td className="px-3 py-2">
                       {user.role === 'admin' ? 'Admin' : (

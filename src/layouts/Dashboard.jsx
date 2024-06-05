@@ -26,7 +26,7 @@ const Dashboard = () => {
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdOutlineSpaceDashboard className="text-xl font-bold" /> {/* Set minimum width for icon */}
-                    <NavLink to="/dashboard" className="ml-2">
+                    <NavLink to="/dashboard/dashboard" className="ml-2">
                       Admin Dashboard
                     </NavLink>
                   </li>
