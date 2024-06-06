@@ -55,8 +55,9 @@ const router = createBrowserRouter([
         element: <Registration />
       },
       {
-        path: "/checkout/:biodataId",
-        element: <Checkout />
+        path: "/checkout/:id",
+        element: <Checkout />,
+        loader: ({ params }) => fetch(`/biodatas/${params.id}`)
       }
     ]
   },

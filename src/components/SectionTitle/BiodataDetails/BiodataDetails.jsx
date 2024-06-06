@@ -94,7 +94,7 @@
 //             </> : <>
 //             <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded mr-10">Pay</button>
 //             </>}
-          
+
 //           <button
 //             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
 //             onClick={addToFavorites}
@@ -119,7 +119,7 @@
 
 
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import useRole from '../../../hooks/useRole';
@@ -127,7 +127,6 @@ import useRole from '../../../hooks/useRole';
 const BiodataDetails = () => {
   const [role] = useRole();
   const axiosPublic = useAxiosPublic();
-  const navigate = useNavigate();
   const { id } = useParams();
   const [isFavoriteAdded, setIsFavoriteAdded] = useState(false);
   const [favoriteError, setFavoriteError] = useState(null);
@@ -140,6 +139,8 @@ const BiodataDetails = () => {
     }
   });
 
+  // console.log(id);
+
   const addToFavorites = async () => {
     try {
       await axiosPublic.post('/favorites', { biodataId: id });
@@ -150,9 +151,7 @@ const BiodataDetails = () => {
     }
   };
 
-  const handleRequestContact = () => {
-    navigate(`/checkout/${id}`);
-  };
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -196,14 +195,13 @@ const BiodataDetails = () => {
               </p>
             </>
           ) : (
-            <button
+            <Link to={`/checkout/${id}`}><button
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded mr-10"
-              onClick={handleRequestContact}
             >
               Request Contact Information
-            </button>
+            </button></Link>
           )}
-          
+
           <button
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
             onClick={addToFavorites}
