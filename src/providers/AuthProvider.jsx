@@ -1,3 +1,7 @@
+
+
+
+
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
@@ -10,38 +14,49 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
-
-  // const createUser = (email, password) => {
-  //   setLoading(true);
-  //   return createUserWithEmailAndPassword(auth, email, password)
-  // }
-  const signIn = (email, password) => {
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password)
+    try {
+      return await signInWithEmailAndPassword(auth, email, password);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const googleSignIn = () => {
+  const googleSignIn = async () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    try {
+      return await signInWithPopup(auth, googleProvider);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const logOut = () => {
+  const logOut = async () => {
     setLoading(true);
-    return signOut(auth);
+    try {
+      return await signOut(auth);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const updateUserProfile = (name, photo) => {
+  const updateUserProfile = async (name, photo) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, {
-      displayName: name, photoURL: photo
-    });
+    try {
+      if (auth.currentUser) {
+        return await updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   const createUser = async (email, password, displayName) => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: displayName });
+      await updateProfile(userCredential.user, { displayName });
       return userCredential.user;
     } catch (error) {
       console.error("Error creating user", error);
@@ -50,90 +65,63 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  
-  // When saving user data
+
   const saveUser = async (user) => {
-    setLoading(true);
-    if (!user || !user?.email || !user?.displayName) {
+    if (!user || !user.email || !user.displayName) {
       console.error("Invalid user object passed to saveUser", user);
       return;
     }
-  
+
     const userData = {
       name: user.displayName,
       email: user.email,
       role: 'normal',
       status: 'Verified',
     };
-  
-    // Logging user data before sending to the server
+
     console.log('User data to be sent:', userData);
-  
+
     try {
-      const { data } = await axios.put(`http://localhost:5000/user`, userData);
+      const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/user`, userData);
       console.log(data);
       return data;
     } catch (error) {
       console.error("Error saving user", error);
-    } finally {
-      setLoading(false);
+      throw error;
     }
   };
-  
-
-
-  // save user
-  // const saveUser = async (user) => {
-  //   setLoading(true);
-  //   if (!user || !user.email) {
-  //     console.error("Invalid user object passed to saveUser", user);
-  //     return;
-  //   }
-
-    
-  //   const userData = {
-  //     name: user?.displayName,
-  //     email: user?.email,
-  //     role: 'normal',
-  //     status: 'Verified',
-     
-  //   };
-
-
-  //   // Logging user data before sending to the server
-  //   console.log('User data to be sent:', userData);
-
-
-  //   try {
-  //     const { data } = await axios.put(`http://localhost:5000/user`, userData);
-  //     console.log(data);
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error saving user", error);
-  //   }
-  // };
-
-
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
 
       if (currentUser) {
-        await saveUser(currentUser);  // Pass the currentUser object
-        console.log("New User's Data saved in db");
+        try {
+          await saveUser(currentUser);
+          console.log("New User's Data saved in db");
+
+          const loggedUser = { email: currentUser.email };
+          const { data: tokenResponse } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, { withCredentials: true });
+          console.log('Token response', tokenResponse);
+        } catch (error) {
+          console.error("Error during user save or token issuance", error);
+        }
+      } else {
+        const loggedUser = { email: user?.email };
+        try {
+          const { data: logoutResponse } = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, loggedUser, { withCredentials: true });
+          console.log(logoutResponse);
+        } catch (error) {
+          console.error("Error during logout", error);
+        }
       }
 
-      console.log('current user', currentUser);
       setLoading(false);
     });
 
-    return () => {
-      return unsubscribe();
-    };
-  }, []);
-
+    return () => unsubscribe();
+  }, [user?.email]);
 
   const authInfo = {
     user,
@@ -144,9 +132,9 @@ const AuthProvider = ({ children }) => {
     signIn,
     googleSignIn,
     logOut,
-    updateUserProfile
+    updateUserProfile,
+  };
 
-  }
   return (
     <AuthContext.Provider value={authInfo}>
       {children}
@@ -155,13 +143,6 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-
-
-
-
-
-
-
 
 
 
