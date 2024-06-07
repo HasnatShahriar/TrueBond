@@ -1,16 +1,12 @@
 import { Helmet } from "react-helmet-async";
-import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FaUsers } from "react-icons/fa";
-import UpdateUserModal from "../../../components/Modal/UpdateUserModal";
 import toast from "react-hot-toast";
-import { useState } from "react";
+
 
 
 const ApprovedPremium = () => {
-
-  const { user } = useAuth();
 
 
   const axiosSecure = useAxiosSecure();
@@ -24,21 +20,23 @@ const ApprovedPremium = () => {
     }
   });
 
+
+
   const handleMakePremium = user => {
     axiosSecure.patch(`/users/premium/${user._id}`)
       .then(res => {
         console.log(res.data);
         if (res.data.modifiedCount > 0) {
           refetch();
-          toast.success(`Member is a Premium Now`)
-        }else{
-          toast.success("Please wait !!! Already Converted")
+          toast.success(`${user?.name} is a Premium Now`)
+        } else {
+          toast.success("Already Converted")
         }
-        
+
       })
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return <p>Loading...</p>
   }
 
@@ -95,16 +93,11 @@ const ApprovedPremium = () => {
                   </td>
 
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
-                      <span
-                        aria-hidden='true'
-                        className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-                      ></span>
-                      <span className='relative'> <button onClick={() => handleMakePremium(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-600">
-                        <FaUsers className="text-white text-2xl" />
-                      </button></span>
-                    </span>
-                    {/* Update User Modal */}
+
+                    <button onClick={() => handleMakePremium(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-600">
+                      <FaUsers className="text-white text-2xl" />
+                    </button>
+
                   </td>
                 </tr>)}
               </tbody>
@@ -117,3 +110,5 @@ const ApprovedPremium = () => {
 };
 
 export default ApprovedPremium;
+
+

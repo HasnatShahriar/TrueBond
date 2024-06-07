@@ -101,7 +101,8 @@ const PaymentCheckoutForm = ({ id }) => {
           status: 'Pending',
           biodataName: biodata?.name,
           biodataMobileNumber: biodata?.mobileNumber,
-          biodataEmail: biodata?.contactEmail
+          biodataEmail: biodata?.contactEmail,
+          price
 
         };
         const res = await axiosSecure.post('/payments', payment);

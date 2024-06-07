@@ -105,7 +105,7 @@ const MyContactRequest = () => {
                   </>
                 ) : (
                   <>
-                    <td className="px-3 py-2">{payment.biodataMobileNumber}</td>
+                    <td className="px-3 py-2">{payment.biodataEmail}</td>
                   </>
                 )}
               </td>
