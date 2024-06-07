@@ -19,6 +19,8 @@ import ApprovedPremium from "../pages/Dashboard/ApprovedPremium/ApprovedPremium"
 import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest/ApprovedContactRequest";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 import Checkout from "../pages/Checkout/Checkout";
+import UserDashboard from "../pages/Dashboard/UserDashboard/UserDashboard";
+import AdminSuccessStory from "../pages/Dashboard/AdminSuccessStory/AdminSuccessStory";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,10 @@ const router = createBrowserRouter([
     children: [
       // normal user routes
       {
+        path: "userDashboard",
+        element: <UserDashboard/>
+      },
+      {
         path: "editBiodata",
         element: <EditBiodata />
       },
@@ -88,7 +94,7 @@ const router = createBrowserRouter([
       },
       // admin routes
       {
-        path: "",
+        path: "dashboard",
         element: <AdminDashboard />
       },
       {
@@ -106,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "approvedContactRequest",
         element: <ApprovedContactRequest />
+      },
+      {
+        path: "successStory",
+        element: <AdminSuccessStory/>
       }
     ]
   }

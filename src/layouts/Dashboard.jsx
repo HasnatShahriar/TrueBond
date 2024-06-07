@@ -3,16 +3,14 @@ import { MdApproval, MdLogout, MdOutlineContactPhone, MdOutlineSpaceDashboard } 
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
 import { FaBookmark } from "react-icons/fa6";
-import { GiLovers } from "react-icons/gi";
+import { GiClover, GiLovers } from "react-icons/gi";
 import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   const { logOut } = useAuth;
   const [role, isLoading] = useRole();
-  // console.log(role, isLoading);
-  // TODO: get isAdmin value from the database
-  // const isAdmin = false;
+
   if (isLoading) return <p>Loading...</p>
   return (
     <div>
@@ -20,37 +18,43 @@ const Dashboard = () => {
       <div className="flex">
         <div className="w-64 min-h-screen bg-orange-300">
           {/* Sidebar */}
-          <ul className="menu p-4 flex flex-col"> {/* Added flex styles */}
+          <ul className="menu p-4 flex flex-col">
             {
               role === 'admin' ?
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
-                    <MdOutlineSpaceDashboard className="text-xl font-bold" /> {/* Set minimum width for icon */}
-                    <NavLink to="/dashboard" className="ml-2">
+                    <MdOutlineSpaceDashboard className="text-xl font-bold" />
+                    <NavLink to="/dashboard/dashboard" className="ml-2">
                       Admin Dashboard
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <FaUsersCog className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <FaUsersCog className="text-xl font-bold" />
                     <NavLink to="/dashboard/manage" className="ml-2">
                       Manage Users
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <MdApproval className="text-base font-bold" /> {/* Set minimum width for icon */}
+                    <MdApproval className="text-base font-bold" />
                     <NavLink to="/dashboard/approvedPremium" className="ml-2">
                       Approved Premium
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <MdOutlineContactPhone className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <MdOutlineContactPhone className="text-xl font-bold" />
                     <NavLink to="/dashboard/approvedContactRequest" className="ml-2">
                       Approved Contact Request
 
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black"> {/* Removed margin for bottom item */}
-                    <MdLogout className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                    <GiClover className="text-xl font-bold" />
+                    <NavLink to="/dashboard/successStory" className="ml-2">
+                      Success Stroy
+                    </NavLink>
+                  </li>
+                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                    <MdLogout className="text-xl font-bold" />
                     <button onClick={logOut} className="btn btn-sm ml-2">
                       Log Out
                     </button>
@@ -59,7 +63,13 @@ const Dashboard = () => {
                 :
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
-                    <FaEdit className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <FaEdit className="text-xl font-bold" />
+                    <NavLink to="/dashboard/userDashboard" className="ml-2">
+                      User Dashboard
+                    </NavLink>
+                  </li>
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
+                    <FaEdit className="text-xl font-bold" />
                     <NavLink to="/dashboard/editBiodata" className="ml-2">
                       Edit Biodata
                     </NavLink>
@@ -71,25 +81,25 @@ const Dashboard = () => {
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <FaPhone className="text-base font-bold" /> {/* Set minimum width for icon */}
+                    <FaPhone className="text-base font-bold" />
                     <NavLink to="/dashboard/myContactRequest" className="ml-2">
                       My Contact Request
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <FaBookmark className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <FaBookmark className="text-xl font-bold" />
                     <NavLink to="/dashboard/favouritesBiodata" className="ml-2">
                       Favorites Biodata
                     </NavLink>
                   </li>
                   <li className="flex items-center mb-2  border-2 p-2 border-black">
-                    <GiLovers className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                    <GiLovers className="text-xl font-bold" />
                     <NavLink to="/dashboard/gotMarried" className="ml-2">
                       Got Married
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black"> {/* Removed margin for bottom item */}
-                    <MdLogout className="text-xl font-bold" /> {/* Set minimum width for icon */}
+                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                    <MdLogout className="text-xl font-bold" />
                     <button onClick={logOut} className="btn btn-sm ml-2">
                       Log Out
                     </button>
@@ -102,7 +112,6 @@ const Dashboard = () => {
         {/* Outlet --> Dynamic content */}
         <div className="flex-1">
           <div>
-
             <Outlet />
           </div>
         </div>

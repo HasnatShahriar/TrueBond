@@ -18,6 +18,16 @@ const CounterSection = () => {
     },
   });
 
+  const { data: marriageStats } = useQuery({
+    queryKey: ['counter-section1'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/success-stories');
+      return res.data;
+    },
+  });
+
+  console.log(marriageStats);
+
   return (
     <div className='mb-10'>
       <SectionTitle heading={'TrueBond Users Statistics'} />
@@ -28,7 +38,6 @@ const CounterSection = () => {
         </section>
       ) : stats ? (
         <div className=" mx-auto mt-12  rounded-lg shadow-lg p-6">
-          {/* Your existing counter content using stats.totalBiodata, etc. */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
               <img className='w-48 h-48 rounded-full' src={totalImg} alt="" />
@@ -48,7 +57,7 @@ const CounterSection = () => {
             <div className="bg-gradient-to-b from-pink-100 to-pink-50 p-4 rounded-md flex flex-col justify-center items-center gap-4">
               <img className='w-48 h-48 rounded-full' src={coupleImg} alt="" />
               <h3 className="text-2xl font-semibold mb-2">Completed Marriages</h3>
-              <p className="text-6xl font-bold text-green-500">-------</p>
+              <p className="text-6xl font-bold text-green-500">{marriageStats.length}</p>
             </div>
           </div>
         </div>
