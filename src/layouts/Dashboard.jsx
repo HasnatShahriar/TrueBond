@@ -12,11 +12,12 @@ const Dashboard = () => {
   const [role, isLoading] = useRole();
 
   if (isLoading) return <p>Loading...</p>
+
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col lg:flex-row">
-        <div className="lg:w-64 min-h-screen bg-orange-300">
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-64 min-h-screen bg-orange-300">
           {/* Sidebar */}
           <ul className="menu p-4 flex flex-col">
             {
@@ -28,32 +29,31 @@ const Dashboard = () => {
                       Admin Dashboard
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaUsersCog className="text-xl font-bold" />
                     <NavLink to="/dashboard/manage" className="ml-2">
                       Manage Users
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdApproval className="text-base font-bold" />
                     <NavLink to="/dashboard/approvedPremium" className="ml-2">
                       Approved Premium
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdOutlineContactPhone className="text-xl font-bold" />
                     <NavLink to="/dashboard/approvedContactRequest" className="ml-2">
                       Approved Contact Request
-
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <GiClover className="text-xl font-bold" />
                     <NavLink to="/dashboard/successStory" className="ml-2">
-                      Success Stroy
+                      Success Story
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdLogout className="text-xl font-bold" />
                     <button onClick={logOut} className="btn btn-sm ml-2">
                       Log Out
@@ -64,35 +64,41 @@ const Dashboard = () => {
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaEdit className="text-xl font-bold" />
+                    <NavLink to="/dashboard" className="ml-2">
+                      User Dashboard
+                    </NavLink>
+                  </li>
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
+                    <FaEdit className="text-xl font-bold" />
                     <NavLink to="/dashboard/editBiodata" className="ml-2">
                       Edit Biodata
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaUserCircle className="text-xl font-bold" /> {/* Set minimum width for icon */}
                     <NavLink to="/dashboard/viewBiodata" className="ml-2">
                       View Biodata
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaPhone className="text-base font-bold" />
                     <NavLink to="/dashboard/myContactRequest" className="ml-2">
                       My Contact Request
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaBookmark className="text-xl font-bold" />
                     <NavLink to="/dashboard/favouritesBiodata" className="ml-2">
                       Favorites Biodata
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <GiLovers className="text-xl font-bold" />
                     <NavLink to="/dashboard/gotMarried" className="ml-2">
                       Got Married
                     </NavLink>
                   </li>
-                  <li className="flex items-center mb-2  border-2 p-2 border-black">
+                  <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdLogout className="text-xl font-bold" />
                     <button onClick={logOut} className="btn btn-sm ml-2">
                       Log Out
@@ -104,10 +110,8 @@ const Dashboard = () => {
         </div>
 
         {/* Outlet --> Dynamic content */}
-        <div className="flex-1">
-          <div>
-            <Outlet />
-          </div>
+        <div className="flex-1 p-4">
+          <Outlet />
         </div>
       </div>
     </div>
@@ -115,6 +119,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-

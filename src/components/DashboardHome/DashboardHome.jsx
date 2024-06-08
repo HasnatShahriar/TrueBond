@@ -1,5 +1,6 @@
 import useRole from "../../hooks/useRole";
 import AdminDashboard from "../../pages/Dashboard/AdminDashboard/AdminDashboard";
+import UserDashboard from "../../pages/Dashboard/UserDashboard/UserDashboard";
 
 
 
@@ -9,7 +10,7 @@ const DashboardHome = () => {
   return (
     <>
       {
-        role === 'admin' && <AdminDashboard/> 
+        role === 'admin' ? <AdminDashboard/> : <UserDashboard/>
       } 
     </>
   );

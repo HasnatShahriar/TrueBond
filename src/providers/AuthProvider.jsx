@@ -80,7 +80,7 @@ const AuthProvider = ({ children }) => {
 
     try {
       const { data } = await axios.put(`https://true-bond-server.vercel.app/user`, userData);
-      console.log(data);
+      console.log('clg from ath',data);
       return data;
     } catch (error) {
       console.error("Error saving user", error);

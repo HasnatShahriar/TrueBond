@@ -23,7 +23,7 @@ const ViewBiodata = () => {
         role: 'normal',
         status: 'Requested for Premium',
       };
-      const { data } = await axiosSecure.put(`http://localhost:5000/user`, currentUser);
+      const { data } = await axiosSecure.put(`/user`, currentUser);
       console.log(data);
       if (data.modifiedCount > 0) {
         toast.success("Success! Please Wait for Admin Approval");
