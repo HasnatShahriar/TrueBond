@@ -1,7 +1,3 @@
-
-
-
-
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
@@ -83,7 +79,7 @@ const AuthProvider = ({ children }) => {
     console.log('User data to be sent:', userData);
 
     try {
-      const { data } = await axios.put(`http://localhost:5000/user`, userData);
+      const { data } = await axios.put(`https://true-bond-server.vercel.app/user`, userData);
       console.log(data);
       return data;
     } catch (error) {
@@ -103,7 +99,7 @@ const AuthProvider = ({ children }) => {
           console.log("New User's Data saved in db");
 
           const loggedUser = { email: currentUser.email };
-          const { data: tokenResponse } = await axios.post(`http://localhost:5000/jwt`, loggedUser, { withCredentials: true });
+          const { data: tokenResponse } = await axios.post(`https://true-bond-server.vercel.app/jwt`, loggedUser, { withCredentials: true });
           console.log('Token response', tokenResponse);
         } catch (error) {
           console.error("Error during user save or token issuance", error);
@@ -111,7 +107,7 @@ const AuthProvider = ({ children }) => {
       } else {
         const loggedUser = { email: user?.email };
         try {
-          const { data: logoutResponse } = await axios.post(`http://localhost:5000/logout`, loggedUser, { withCredentials: true });
+          const { data: logoutResponse } = await axios.post(`https://true-bond-server.vercel.app/logout`, loggedUser, { withCredentials: true });
           console.log(logoutResponse);
         } catch (error) {
           console.error("Error during logout", error);

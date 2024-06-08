@@ -3,23 +3,15 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 
-
 const ApprovedContactRequest = () => {
-
-
   const axiosSecure = useAxiosSecure();
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['contactRequestedUsers'],
     queryFn: async () => {
-
       const res = await axiosSecure.get('/payments');
       return res.data;
-
     }
   });
-
-  console.log(users);
-
 
   const handleApprovedRequest = user => {
     axiosSecure.patch(`/payments/contact/${user._id}`)
@@ -31,7 +23,6 @@ const ApprovedContactRequest = () => {
         } else {
           toast.success("Already Converted")
         }
-
       })
   }
 
@@ -50,55 +41,29 @@ const ApprovedContactRequest = () => {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Email
-                  </th>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Biodata Id
-                  </th>
-
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Approved contact request
-                  </th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Name</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Email</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Biodata ID</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Approved Contact Request</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => <tr key={user._id}>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <p className='text-gray-900 whitespace-no-wrap'>{user?.name}</p>
-                  </td>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
-                  </td>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    {user?.biodataId}
-                  </td>
-
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-
-
-                    {user?.status === 'Pending' ?
-                      <button onClick={() => handleApprovedRequest(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-200">
-                        Approve Request
-                      </button> : 'Approved'
-                    }
-                  </td>
-                </tr>)}
+                {users.map(user => (
+                  <tr key={user._id} className='bg-white border-b border-gray-200'>
+                    <td className='px-6 py-4 whitespace-no-wrap text-sm text-gray-900'>{user?.name}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap text-sm text-gray-900'>{user?.email}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap text-sm'>{user?.biodataId}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap text-sm'>
+                      {user?.status === 'Pending' ? (
+                        <button onClick={() => handleApprovedRequest(user)} className='px-4 py-2 font-semibold rounded bg-pink-200 hover:bg-pink-300 focus:outline-none'>
+                          Approve Request
+                        </button>
+                      ) : (
+                        <span className='text-gray-600'>Approved</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

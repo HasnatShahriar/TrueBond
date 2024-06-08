@@ -1,26 +1,18 @@
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { FaUsers } from "react-icons/fa";
 import toast from "react-hot-toast";
-
-
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 const ApprovedPremium = () => {
-
-
   const axiosSecure = useAxiosSecure();
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['premiumRequestedUsers'],
     queryFn: async () => {
-
       const res = await axiosSecure.get('/users/requested-premium');
       return res.data;
-
     }
   });
-
-
 
   const handleMakePremium = user => {
     axiosSecure.patch(`/users/premium/${user._id}`)
@@ -32,7 +24,6 @@ const ApprovedPremium = () => {
         } else {
           toast.success("Already Converted")
         }
-
       })
   }
 
@@ -53,53 +44,25 @@ const ApprovedPremium = () => {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Email
-                  </th>
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Biodata Id
-                  </th>
-
-                  <th
-                    scope='col'
-                    className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                  >
-                    Make Premium
-                  </th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Name</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Email</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Biodata ID</th>
+                  <th className='px-6 py-3 bg-gray-100 border-b border-gray-200 text-gray-800 text-left text-xs uppercase font-semibold'>Make Premium</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => <tr key={user._id}>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <p className='text-gray-900 whitespace-no-wrap'>{user?.name}</p>
-                  </td>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
-                  </td>
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    {user?.biodataId}
-                  </td>
-
-                  <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-
-                    <button onClick={() => handleMakePremium(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-600">
-                      <FaUsers className="text-white text-2xl" />
-                    </button>
-
-                  </td>
-                </tr>)}
+                {users.map(user => (
+                  <tr key={user._id} className={(user.role === 'premium') ? 'bg-green-50' : 'bg-white'}>
+                    <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm'>{user?.name}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm'>{user?.email}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm'>{user?.biodataId}</td>
+                    <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm'>
+                      <button onClick={() => handleMakePremium(user)} className={(user.role === 'premium') ? 'bg-gray-300 text-gray-600 px-4 py-2 rounded-full focus:outline-none' : 'bg-[#e66558] text-white px-4 py-2 rounded-full focus:outline-none'}>
+                        <FaAngleDoubleRight className="text-xl" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -110,5 +73,3 @@ const ApprovedPremium = () => {
 };
 
 export default ApprovedPremium;
-
-

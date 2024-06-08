@@ -145,7 +145,7 @@ const PaymentCheckoutForm = ({ id }) => {
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
         />
       </div>
-      <button className="bg-indigo-600 text-white font-semibold my-4 px-4 py-2 rounded-xl w-full hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200" type="submit" disabled={!stripe || !clientSecret}>
+      <button className="w-full px-4 py-2 bg-[#FF6F61] text-white rounded-md font-semibold hover:bg-[#e66558] focus:outline-none focus:ring-2 focus:ring-[#FF6F61]" type="submit" disabled={!stripe || !clientSecret}>
         Submit
       </button>
       {error && <p className="text-red-600">{error}</p>}

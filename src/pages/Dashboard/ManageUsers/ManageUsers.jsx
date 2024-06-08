@@ -1,16 +1,14 @@
 
-
-
 import { useState } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaUsers } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { FaAngleDoubleRight } from 'react-icons/fa';
 
 const ManageUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const axiosSecure = useAxiosSecure();
-  const { data: users = [],isLoading, refetch } = useQuery({
+  const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['users', searchTerm],
     queryFn: async () => {
       if (searchTerm) {
@@ -23,7 +21,7 @@ const ManageUsers = () => {
     }
   });
 
-  if(isLoading) return <p>Loading....</p>
+  if (isLoading) return <p>Loading....</p>
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -51,18 +49,19 @@ const ManageUsers = () => {
         }
       })
   }
-console.log(users);
+
+  console.log(users);
+
   return (
-    <div>
-      <div className="flex justify-evenly my-4">
-        <h2 className="text-3xl">All Users</h2>
-        <h2 className="text-3xl">Total Users: {users.length}</h2>
+    <div className="p-4">
+      <div className="flex flex-col sm:flex-row justify-between my-4 items-center">
+        <h2 className="text-3xl mb-4 sm:mb-0 font-semibold">Total Users: {users.length}</h2>
         <input
           type="text"
           placeholder="Search by username"
           value={searchTerm}
           onChange={handleSearch}
-          className="input input-bordered border-2"
+          className="input input-bordered border-2 w-full px-4 py-2 sm:w-auto mb-4 sm:mb-0"
         />
       </div>
       <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800">
@@ -75,11 +74,10 @@ console.log(users);
               <col />
               <col />
               <col />
-              <col />
               <col className="w-5" />
             </colgroup>
             <thead>
-              <tr className="dark:bg-gray-300">
+              <tr className="dark:bg-gray-300 bg-gray-100">
                 <th className="p-3">#</th>
                 <th className="p-3">User Name</th>
                 <th className="p-3">User Email</th>
@@ -87,10 +85,10 @@ console.log(users);
                 <th className="p-3">Make Premium</th>
               </tr>
             </thead>
-            <tbody className="border-b dark:bg-gray-50 dark:border-gray-300">
+            <tbody className="border-b dark:bg-gray-50 bg-white dark:border-gray-300">
               {
                 users.map((user, index) => (
-                  <tr key={user._id}>
+                  <tr key={user._id} className="hover:bg-gray-100 dark:hover:bg-gray-200 transition-colors">
                     <td className="px-3 font-medium dark:text-gray-600">{index + 1}</td>
                     <td className="px-3 py-2">
                       <p>{user?.name}</p>
@@ -100,15 +98,15 @@ console.log(users);
                     </td>
                     <td className="px-3 py-2">
                       {user.role === 'admin' ? 'Admin' : (
-                        <button onClick={() => handleMakeAdmin(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-orange-600">
-                          <FaUsers className="text-white text-2xl" />
+                        <button onClick={() => handleMakeAdmin(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-orange-600 hover:bg-orange-700 transition-colors">
+                          <FaAngleDoubleRight className="text-white text-2xl" />
                         </button>
                       )}
                     </td>
                     <td className="px-3 py-2">
                       {user.role === 'premium' ? 'Premium' : (
-                        <button onClick={() => handleMakePremium(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-600">
-                          <FaUsers className="text-white text-2xl" />
+                        <button onClick={() => handleMakePremium(user)} className="px-4 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100 bg-pink-600 hover:bg-pink-700 transition-colors">
+                          <FaAngleDoubleRight className="text-white text-2xl" />
                         </button>
                       )}
                     </td>

@@ -8,15 +8,15 @@ import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
-  const { logOut } = useAuth;
+  const { logOut } = useAuth();
   const [role, isLoading] = useRole();
 
   if (isLoading) return <p>Loading...</p>
   return (
     <div>
       <Navbar />
-      <div className="flex">
-        <div className="w-64 min-h-screen bg-orange-300">
+      <div className="flex flex-col lg:flex-row">
+        <div className="lg:w-64 min-h-screen bg-orange-300">
           {/* Sidebar */}
           <ul className="menu p-4 flex flex-col">
             {
@@ -24,7 +24,7 @@ const Dashboard = () => {
                 <>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <MdOutlineSpaceDashboard className="text-xl font-bold" />
-                    <NavLink to="/dashboard/dashboard" className="ml-2">
+                    <NavLink to="/dashboard" className="ml-2">
                       Admin Dashboard
                     </NavLink>
                   </li>
@@ -62,12 +62,6 @@ const Dashboard = () => {
                 </>
                 :
                 <>
-                  <li className="flex items-center mb-2 border-2 p-2 border-black">
-                    <FaEdit className="text-xl font-bold" />
-                    <NavLink to="/dashboard/userDashboard" className="ml-2">
-                      User Dashboard
-                    </NavLink>
-                  </li>
                   <li className="flex items-center mb-2 border-2 p-2 border-black">
                     <FaEdit className="text-xl font-bold" />
                     <NavLink to="/dashboard/editBiodata" className="ml-2">
@@ -121,3 +115,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+

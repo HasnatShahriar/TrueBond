@@ -17,15 +17,17 @@ import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import GotMarried from "../pages/Dashboard/GotMarried/GotMarried";
 import ApprovedPremium from "../pages/Dashboard/ApprovedPremium/ApprovedPremium";
 import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest/ApprovedContactRequest";
-import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 import Checkout from "../pages/Checkout/Checkout";
-import UserDashboard from "../pages/Dashboard/UserDashboard/UserDashboard";
 import AdminSuccessStory from "../pages/Dashboard/AdminSuccessStory/AdminSuccessStory";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import DashboardHome from "../components/DashboardHome/DashboardHome";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -65,12 +67,13 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: <PrivateRoute> <Dashboard /></PrivateRoute>,
     children: [
       // normal user routes
       {
-        path: "userDashboard",
-        element: <UserDashboard/>
+        // index: true,
+        path: '',
+        element: <DashboardHome />
       },
       {
         path: "editBiodata",
@@ -94,28 +97,20 @@ const router = createBrowserRouter([
       },
       // admin routes
       {
-        path: "dashboard",
-        element: <AdminDashboard />
-      },
-      {
         path: "manage",
-        element: <ManageUsers />
-      },
-      {
-        path: "manage",
-        element: <ManageUsers />
+        element: <AdminRoute><ManageUsers /></AdminRoute>
       },
       {
         path: "approvedPremium",
-        element: <ApprovedPremium />
+        element: <AdminRoute><ApprovedPremium /></AdminRoute>
       },
       {
         path: "approvedContactRequest",
-        element: <ApprovedContactRequest />
+        element: <AdminRoute><ApprovedContactRequest /></AdminRoute>
       },
       {
         path: "successStory",
-        element: <AdminSuccessStory/>
+        element: <AdminRoute><AdminSuccessStory /></AdminRoute>
       }
     ]
   }
