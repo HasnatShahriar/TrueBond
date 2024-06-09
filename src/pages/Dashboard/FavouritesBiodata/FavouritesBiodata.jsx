@@ -1,24 +1,47 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const FavouritesBiodata = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
-  const { data: favorites = [], isLoading: loading, isError: error,refetch } = useQuery({
-    queryKey: ['favorites'],
+  const { data: favorites = [], isLoading: loading, isError: error, refetch } = useQuery({
+    queryKey: ['favorites', user?.email],
     queryFn: async () => {
-      const res = await axiosPublic.get('/favorites');
+      if (!user?.email) {
+        throw new Error("User is not authenticated");
+      }
+      const res = await axiosSecure.get(`/favorites/${user?.email}`);
       return res.data;
-    }
+    },
+    enabled: !!user?.email,
   });
 
-  const handleRemoveFromFavorites = async (id) => {
-    try {
-      await axiosPublic.delete(`/favorites/${id}`);
-      refetch();
-    } catch (err) {
-      console.error('Error removing favorite:', err);
-    }
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/favorites/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   if (loading) {
@@ -31,36 +54,38 @@ const FavouritesBiodata = () => {
 
   return (
     <div className="m-5 font-sans">
-      <h2 className="text-2xl font-bold mb-4">My Favorites</h2>
-      <table className="min-w-full bg-white">
-        <thead>
-          <tr>
-            <th className="py-2 px-4">Name</th>
-            <th className="py-2 px-4">Biodata ID</th>
-            <th className="py-2 px-4">Permanent Address</th>
-            <th className="py-2 px-4">Occupation</th>
-            <th className="py-2 px-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {favorites.map((biodata) => (
-            <tr key={biodata._id}>
-              <td className="border px-4 py-2">{biodata.name}</td>
-              <td className="border px-4 py-2">{biodata.biodataId}</td>
-              <td className="border px-4 py-2">{biodata.permanentDivision}</td>
-              <td className="border px-4 py-2">{biodata.occupation}</td>
-              <td className="border px-4 py-2">
-                <button
-                  className="px-4 py-2 bg-red-500 text-white rounded"
-                  onClick={() => handleRemoveFromFavorites(biodata._id)}
-                >
-                  Remove
-                </button>
-              </td>
+      <h2 className="text-2xl font-bold mb-4">My total favorites Biodata is: {favorites.length}</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Biodata ID</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Permanent Address</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Occupation</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {favorites.map((biodata) => (
+              <tr key={biodata._id}>
+                <td className="px-6 py-4 whitespace-nowrap">{biodata.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{biodata.biodataId}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{biodata.permanentDivision}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{biodata.occupation}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button
+                    className="px-4 py-2 bg-red-500 text-white rounded focus:outline-none focus:bg-red-600"
+                    onClick={() => handleDelete(biodata._id)}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

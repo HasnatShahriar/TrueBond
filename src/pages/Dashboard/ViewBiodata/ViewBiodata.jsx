@@ -28,7 +28,7 @@ const ViewBiodata = () => {
       if (data.modifiedCount > 0) {
         toast.success("Success! Please Wait for Admin Approval");
       } else {
-        toast.success("Please!!!, Wait for Admin Approval");
+        toast.success("Already request sent!!!,Please Wait for Admin Approval");
       }
     } catch (err) {
       console.log(err);
@@ -39,9 +39,9 @@ const ViewBiodata = () => {
   };
 
   const { data: biodata = [], isLoading: loading, isError: error } = useQuery({
-    queryKey: user?.email ? ["viewBiodata", user.email] : [],
+    queryKey: user?.email ? ["viewBiodata", user?.email] : [],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/myBiodata/${user.email}`);
+      const res = await axiosPublic.get(`/myBiodata/${user?.email}`);
       return res.data;
     },
     enabled: !!user,

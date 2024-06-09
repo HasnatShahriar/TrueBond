@@ -109,7 +109,7 @@ const GotMarried = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">Review Star:</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Review:</label>
             <div className="flex space-x-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <label key={star} className="flex items-center">

@@ -3,8 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import useRole from '../../../hooks/useRole';
+import toast from 'react-hot-toast';
+import useAuth from '../../../hooks/useAuth';
 
 const BiodataDetails = () => {
+  const {user} = useAuth();
   const [role] = useRole();
   const axiosPublic = useAxiosPublic();
   const { id } = useParams();
@@ -19,13 +22,15 @@ const BiodataDetails = () => {
     }
   });
 
+
   const addToFavorites = async () => {
     try {
-      await axiosPublic.post('/favorites', { biodataId: id });
+      await axiosPublic.post('/favorites', { ...biodata, email: user?.email });
       setIsFavoriteAdded(true);
-      setFavoriteError(null);
+      toast.success('Add to favorites successfully')
     } catch (err) {
       setFavoriteError(err.message);
+      toast.success('Already Added to favorites')
     }
   };
 
@@ -87,7 +92,7 @@ const BiodataDetails = () => {
           >
             {isFavoriteAdded ? 'Added to Favorites' : 'Add to Favorites'}
           </button>
-          {favoriteError && <p className="text-red-500 mt-2">{favoriteError}</p>}
+          {favoriteError && <p className="text-red-500 mt-2">Already Added</p>}
         </div>
       </div>
     </div>

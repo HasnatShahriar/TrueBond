@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { getCookie } from 'cookies-next'; // Adjust based on your cookie management library
+import { getCookie } from 'cookies-next'; // Adjust based on my cookie management library
 
 const axiosSecure = axios.create({
   baseURL: 'https://true-bond-server.vercel.app',
