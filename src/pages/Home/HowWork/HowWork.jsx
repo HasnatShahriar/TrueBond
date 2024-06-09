@@ -20,7 +20,7 @@ const HowWork = () => {
           <div className="mt-6 mb-2">
             <h2 className="text-3xl font-bold tracking-wide">Search Biodata</h2>
           </div>
-          <p className="text-center text-gray-800">In a few simple steps, you can easily and entirely free of cost generate a biodata on TrueBond.</p>
+          <p className="text-center text-gray-800">A biodata is a brief document outlining a person's personal, educational, and professional details.</p>
         </div>
         <div className="max-w-xs p-6 flex flex-col gap-6 items-center rounded-md shadow-md bg-gradient-to-b from-pink-100 to-pink-50 text-gray-800">
           <FaUser className="text-7xl text-pink-300" />

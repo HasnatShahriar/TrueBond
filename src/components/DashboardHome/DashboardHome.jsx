@@ -9,9 +9,19 @@ const DashboardHome = () => {
   console.log(role);
   return (
     <>
-      {
+      {/* {
         role === 'admin' ? <AdminDashboard/> : <UserDashboard/>
-      } 
+      }  */}
+
+      {
+        role === 'admin' && <AdminDashboard/>
+      }
+      {
+        role === 'normal' && <UserDashboard/>
+      }
+      {
+        role === 'premium' && <UserDashboard/>
+      }
     </>
   );
 };

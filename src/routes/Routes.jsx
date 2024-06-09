@@ -24,6 +24,7 @@ import AdminSuccessStory from "../pages/Dashboard/AdminSuccessStory/AdminSuccess
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import DashboardHome from "../components/DashboardHome/DashboardHome";
 import AdminRoute from "./AdminRoute";
+import UserRoute from "./UserRoute";
 
 const router = createBrowserRouter([
   {
@@ -79,27 +80,27 @@ const router = createBrowserRouter([
       },
       {
         path: "userDashboard",
-        element: <UserDashboard/>
+        element: <UserRoute><UserDashboard /></UserRoute>
       },
       {
         path: "editBiodata",
-        element: <EditBiodata />
+        element: <UserRoute><EditBiodata /></UserRoute>
       },
       {
         path: "viewBiodata",
-        element: <ViewBiodata />
+        element: <UserRoute><ViewBiodata /></UserRoute>
       },
       {
         path: "myContactRequest",
-        element: <MyContactRequest />
+        element: <UserRoute><MyContactRequest /></UserRoute>
       },
       {
         path: "favouritesBiodata",
-        element: <FavouritesBiodata />
+        element: <UserRoute><FavouritesBiodata /></UserRoute>
       },
       {
         path: "gotMarried",
-        element: <GotMarried />
+        element: <UserRoute><GotMarried /></UserRoute>
       },
       // admin routes
 
