@@ -133,12 +133,13 @@ const Biodatas = () => {
             >
               <option value="">Permanent Division</option>
               <option value="Dhaka">Dhaka</option>
-              <option value="Chattagram">Chattagram</option>
+              <option value="Chittagong">Chittagong</option>
               <option value="Rangpur">Rangpur</option>
               <option value="Barisal">Barisal</option>
               <option value="Khulna">Khulna</option>
               <option value="Maymansign">Maymansign</option>
               <option value="Sylhet">Sylhet</option>
+              <option value="Rajshahi">Rajshahi</option>
             </select>
             <button
               onClick={handleFilter}

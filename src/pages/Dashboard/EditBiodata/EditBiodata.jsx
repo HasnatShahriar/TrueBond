@@ -37,7 +37,7 @@ const EditBiodata = () => {
 
 
 
-  const divisions = ['Dhaka', 'Chittagong', 'Rangpur', 'Barisal', 'Khulna', 'Mymensingh', 'Sylhet'];
+  const divisions = ['Dhaka', 'Chittagong', 'Rangpur', 'Barisal', 'Khulna', 'Mymensingh', 'Sylhet','Rajshahi'];
   const occupations = ['Engineer', 'Doctor', 'Imam', 'Teacher', 'Artist', 'Business Owner', 'House-Wife', 'Student', 'Unemployed', 'Other'];
   const races = ['Bengali', 'Bihari', 'Rohingya', 'Other'];
 
@@ -364,7 +364,7 @@ const EditBiodata = () => {
         {/* Submit Button */}
         <div className="mt-4">
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700">
-            Save And Publish
+            Save And Publish Now
           </button>
         </div>
       </form >
