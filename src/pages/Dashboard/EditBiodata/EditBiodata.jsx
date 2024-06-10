@@ -364,7 +364,7 @@ const EditBiodata = () => {
         {/* Submit Button */}
         <div className="mt-4">
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700">
-            Submit
+            Save And Publish
           </button>
         </div>
       </form >

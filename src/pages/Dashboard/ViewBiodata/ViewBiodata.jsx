@@ -62,7 +62,7 @@ const ViewBiodata = () => {
           <div key={index} className="bg-white rounded-lg shadow-md p-6">
             <div className="flex justify-between items-center mb-4">
               <img src={data.profileImageUrl} alt="Profile Image" className="w-32 h-32 object-cover rounded-full" />
-              <div>
+              <div className="ml-6">
                 <h2 className="text-xl text-gray-800"><strong>{data.name}</strong></h2>
                 <p><strong>Biodata ID:</strong> {data.biodataId}</p>
               </div>
