@@ -38,7 +38,7 @@ const EditBiodata = () => {
 
 
   const divisions = ['Dhaka', 'Chittagong', 'Rangpur', 'Barisal', 'Khulna', 'Mymensingh', 'Sylhet'];
-  const occupations = ['Engineer', 'Doctor', 'Teacher', 'Artist', 'Business Owner', 'House-Wife', 'Student', 'Unemployed', 'Other'];
+  const occupations = ['Engineer', 'Doctor', 'Imam', 'Teacher', 'Artist', 'Business Owner', 'House-Wife', 'Student', 'Unemployed', 'Other'];
   const races = ['Bengali', 'Bihari', 'Rohingya', 'Other'];
 
 
@@ -304,8 +304,8 @@ const EditBiodata = () => {
             <div className="form-group">
               <label className="block text-gray-700 font-semibold mb-2">Expected Partner Height(cm):</label>
               <select
-                name="height"
-                value={formData.height}
+                name="expectedPartnerHeight"
+                value={formData.expectedPartnerHeight}
                 onChange={handleChange}
                 required
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -320,8 +320,8 @@ const EditBiodata = () => {
             <div className="form-group">
               <label className="block text-gray-700 font-semibold mb-2">Expected Partner Weight(kg):</label>
               <select
-                name="weight"
-                value={formData.weight}
+                name="expectedPartnerWeight"
+                value={formData.expectedPartnerWeight}
                 onChange={handleChange}
                 required
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md"

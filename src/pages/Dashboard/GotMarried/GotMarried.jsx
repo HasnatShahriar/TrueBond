@@ -1,11 +1,15 @@
 
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../hooks/useAuth';
 
 const GotMarried = () => {
   const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
 
   const [selfBiodataId, setSelfBiodataId] = useState('');
   const [partnerBiodataId, setPartnerBiodataId] = useState('');
@@ -13,6 +17,31 @@ const GotMarried = () => {
   const [successStory, setSuccessStory] = useState('');
   const [marriageDate, setMarriageDate] = useState('');
   const [reviewStar, setReviewStar] = useState('');
+  const [biodataType, setBiodataType] = useState('');
+
+  const { data: biodata, isLoading: loading, isError: error } = useQuery({
+    queryKey: user?.email ? ["viewBiodata", user?.email] : [],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/myBiodata/${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user,
+  });
+
+  useEffect(() => {
+    if (biodata && biodata.length > 0) {
+      setSelfBiodataId(biodata[0].biodataId);
+      setBiodataType(biodata[0].biodataType); // Set biodataType
+    }
+  }, [biodata]);
+
+  if (loading) {
+    return <div className="text-center mt-4">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-4">Error fetching biodata details: {error.message}</div>;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +52,7 @@ const GotMarried = () => {
       successStory,
       marriageDate,
       reviewStar,
+      biodataType, 
     };
 
     try {
@@ -55,7 +85,7 @@ const GotMarried = () => {
 
   return (
     <div>
-      <SectionTitle heading={"Submit Your Success Story"} subHeading={"Creating a Share Your Story"}/>
+      <SectionTitle heading={"Submit Your Success Story"} subHeading={"Creating a Share Your Story"} />
       <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-10 p-6">
         <h2 className="text-2xl font-bold text-center py-4">Got Married</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -66,6 +96,7 @@ const GotMarried = () => {
               value={selfBiodataId}
               onChange={(e) => setSelfBiodataId(e.target.value)}
               required
+              readOnly
               className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#FF6F61]"
             />
           </div>

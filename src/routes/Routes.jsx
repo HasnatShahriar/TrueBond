@@ -75,7 +75,6 @@ const router = createBrowserRouter([
       // normal user routes
       {
         index: true,
-        // path: '',
         element: <DashboardHome />
       },
       {
