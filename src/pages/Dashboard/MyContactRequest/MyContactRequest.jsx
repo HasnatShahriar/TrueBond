@@ -59,7 +59,7 @@ const MyContactRequest = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h2 className="text-center font-semibold text-2xl my-8">My total contact request: {payments.length}</h2>
+      <h2 className="text-2xl font-bold mb-4">My total contact request: {payments.length}</h2>
       <table className="w-full p-6 text-xs text-left">
         <colgroup>
           <col className="w-1/12" />

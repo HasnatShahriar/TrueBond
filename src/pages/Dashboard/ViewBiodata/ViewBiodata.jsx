@@ -63,11 +63,13 @@ const ViewBiodata = () => {
             <div className="flex justify-between items-center mb-4">
               <img src={data.profileImageUrl} alt="Profile Image" className="w-32 h-32 object-cover rounded-full" />
               <div>
-                <h2 className="text-xl font-semibold text-gray-800">{data.biodataType}</h2>
-                <p className="text-sm text-gray-600">{data.occupation}</p>
+                <h2 className="text-xl text-gray-800"><strong>{data.name}</strong></h2>
+                <p><strong>Biodata ID:</strong> {data.biodataId}</p>
               </div>
             </div>
             <div>
+              <p><strong>Biodata Type:</strong> {data.biodataType}</p>
+              <p><strong>Occupation:</strong> {data.occupation}</p>
               <p><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
               <p><strong>Age:</strong> {data.age}</p>
               <p><strong>Height:</strong> {data.height} cm</p>

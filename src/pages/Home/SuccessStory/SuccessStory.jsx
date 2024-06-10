@@ -74,13 +74,21 @@ import '@smastrom/react-rating/style.css';
 const SuccessStory = () => {
   const axiosPublic = useAxiosPublic();
 
-  const { data: reviews = [] } = useQuery({
+  const { data: reviews = [], isLoading } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
       const res = await axiosPublic.get('/success-stories');
       return res.data;
     }
   });
+
+  if (isLoading) {
+    return <div className="flex items-center justify-center space-x-2">
+      <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+      <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+      <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+    </div>
+  }
 
   return (
     <div className="">

@@ -39,7 +39,7 @@ const EditBiodata = () => {
 
   const divisions = ['Dhaka', 'Chittagong', 'Rangpur', 'Barisal', 'Khulna', 'Mymensingh', 'Sylhet'];
   const occupations = ['Engineer', 'Doctor', 'Teacher', 'Artist', 'Business Owner', 'House-Wife', 'Student', 'Unemployed', 'Other'];
-  const races = ['Asian', 'Black or African American', 'White', 'Hispanic or Latino', 'Native American or American Indian', 'Other'];
+  const races = ['Bengali', 'Bihari', 'Rohingya', 'Other'];
 
 
   // Generating options for height and weight using loops

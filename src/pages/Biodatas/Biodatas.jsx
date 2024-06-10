@@ -160,7 +160,7 @@ const Biodatas = () => {
                 <img
                   src={biodata.profileImageUrl}
                   alt={biodata.name}
-                  className="w-full h-48 object-cover"
+                  className="w-32 h-32 rounded-full mx-auto mt-4 object-cover"
                 />
                 <div className="p-6">
                   <p className="text-gray-600"><strong>Biodata ID:</strong> {biodata.biodataId}</p>

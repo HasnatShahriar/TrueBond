@@ -17,7 +17,11 @@ const PremiumBiodata = () => {
     keepPreviousData: true,
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="flex items-center justify-center space-x-2">
+    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+  </div>;
 
   // Limit to 6 profiles
   const displayedBiodata = biodata.slice(0, 6);
@@ -42,7 +46,7 @@ const PremiumBiodata = () => {
           {displayedBiodata.map(profile => (
             <div key={profile._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <img
-                className="w-full h-48 object-cover"
+                className="w-48 h-48 rounded-full mx-auto mt-4 object-cover"
                 src={profile.profileImageUrl}
                 alt={`${profile.name}'s profile`}
               />
