@@ -31,12 +31,3 @@ TrueBond is a premium matrimonial platform designed to help individuals find the
 3. **Install Dependencies**: `npm install`
 4. **Set Up Environment Variables**: Create a `.env` file with necessary environment variables.
 5. **Run the Server**: `npm run dev`
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
