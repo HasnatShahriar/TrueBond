@@ -32,7 +32,12 @@ Comprehensive User Profiles: Users can create detailed profiles with information
 
 Experience TrueBond today and embark on your journey to find true love!
 
-
+**Used Technologies**:
+ **Frontend**: React, Tailwind CSS
+ **Backend**: Node.js, Express.js
+ **Database**: MongoDB
+ **Authentication**: JWT
+ **Deployment**: Netlify
 
 
 # React + Vite
