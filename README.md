@@ -1,6 +1,6 @@
 
 ## TrueBond Matrimonial Website
-**Admin Email**: sabit@gmail.com
+**Admin Email**: [sabit@gmail.com]
 **Admin Password**: [Aa272023@]
 Live Site URL: [TrueBond](https://true-bond.netlify.app)
 
