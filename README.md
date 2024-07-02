@@ -29,6 +29,13 @@ Experience TrueBond today and embark on your journey to find true love!
 - **Authentication**: Firebase, JWT
 - **Deployment**: Netlify
 
+## Steps to Clone and Run Locally
+1. **Clone the Repository**: `git clone <repository-url>`
+2. **Navigate to the Project Directory**: `cd TrueBond`
+3. **Install Dependencies**: `npm install`
+4. **Set Up Environment Variables**: Create a `.env` file with necessary environment variables.
+5. **Run the Server**: `npm run dev`
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
