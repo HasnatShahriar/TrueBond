@@ -26,7 +26,7 @@ Experience TrueBond today and embark on your journey to find true love!
 - **Frontend**: React, Tailwind CSS
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Authentication**: JWT
+- **Authentication**: Firebase, JWT
 - **Deployment**: Netlify
 
 # React + Vite
